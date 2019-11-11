@@ -37,7 +37,7 @@ export class ErrorComponent implements OnInit{
 		private readonly activeRoute: ActivatedRoute
 	){};
 
-	private errorCode: string ;
+	public errorCode: string ;
 	ngOnInit(): void {
 		this.activeRoute.params.subscribe( query => {
 			this.errorCode = query.code ;

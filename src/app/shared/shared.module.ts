@@ -15,7 +15,7 @@ const modules = [CommonModule, FormsModule, NgZorroAntdMobileModule];
 
 const components = [
 	LoginComponent,
-	ErrorComponent
+	ErrorComponent,
 ];
 const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPipe , NullPipe ];
 
