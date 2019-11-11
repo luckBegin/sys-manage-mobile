@@ -3,4 +3,10 @@ export const HOST: string = environment.HOST;
 const wx = {
 	getConfigByCode: HOST + '/wechat/getWxConfig'
 };
-export const API = { wx };
+
+const staff = {
+	info: HOST + '/system/staff/byUid',
+	changePass: HOST + '/system/staff/changePass'
+}
+
+export const API = { wx , staff };

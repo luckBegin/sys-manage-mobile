@@ -9,11 +9,13 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NullPipe} from './pipe/null.pipe';
 import {NgZorroAntdMobileModule} from "ng-zorro-antd-mobile";
 import {LoginComponent} from "../default/login/login.component";
+import {ErrorComponent} from "../default/error/error.component";
 
 const modules = [CommonModule, FormsModule, NgZorroAntdMobileModule];
 
 const components = [
-	LoginComponent
+	LoginComponent,
+	ErrorComponent
 ];
 const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPipe , NullPipe ];
 
