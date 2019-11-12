@@ -9,4 +9,12 @@ const staff = {
 	changePass: HOST + '/system/staff/changePass'
 }
 
-export const API = { wx , staff };
+const room = {
+	book: HOST + '/room/book',
+	type: HOST + '/room/type'
+}
+
+const system = {
+	shop: HOST + '/system/shop'
+}
+export const API = { wx , staff , room , system };

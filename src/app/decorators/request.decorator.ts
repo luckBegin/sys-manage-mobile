@@ -23,6 +23,7 @@ export function GET(url: string, msg: string = '获取数据失败,原因 : '): 
 				)
 				.subscribe(res => {
 					obsr.next(res);
+					obsr.complete()
 				}, err => {
 					obsr.error({data: err});
 				});
@@ -55,6 +56,7 @@ export function POST(url: string, json: boolean = true, msg: string = '提交失
 				)
 				.subscribe(res => {
 					obsr.next(res);
+					obsr.complete()
 				}, err => {
 					obsr.error({data: err});
 				});
@@ -88,6 +90,7 @@ export function PUT(url: string, withId: boolean = false, msg: string = '保存�
 				)
 				.subscribe(res => {
 					obsr.next(res);
+					obsr.complete()
 				}, err => {
 					obsr.error({data: err});
 				});
@@ -114,6 +117,7 @@ export function DELETE(url: string, msg: string = '删除失败,原因 : '): Met
 				)
 				.subscribe(res => {
 					obsr.next(res);
+					obsr.complete()
 				}, err => {
 					obsr.error({data: err});
 				});

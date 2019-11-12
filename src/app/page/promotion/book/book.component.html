@@ -1,5 +1,173 @@
 <div>
-	<Navbar>
-		book
-	</Navbar>
+	<Drawer
+			class="my-drawer"
+			[ngStyle]="{ minHeight: this.height + 'px' , width: '100%'}"
+			[sidebarStyle]="{width:'100%'}"
+			[enableDragHandle]="false"
+			[open]="bookListShow"
+			[sidebar]="sidebar"
+	>
+		<Navbar>
+			book
+		</Navbar>
+		<div class="list">
+			<List [className]="'my-list'">
+				<ListItem multipleLine [arrow]="'horizontal'" (onClick)="showList()">
+					记录
+					<Brief>查看我的预定记录</Brief>
+				</ListItem>
+			</List>
+		</div>
+
+		<div class='form-wrapper'>
+			<form [formGroup]="form">
+				<List className="c-required">
+					<ListItem
+							Picker
+							[data]="shopENUM"
+							[ngModel]="form.value.a"
+							[ngModelOptions]="{standalone: true}"
+							[extra]="selectShop"
+							[arrow]="'horizontal'"
+							[mask]="true"
+							title="店面"
+							(ngModelChange)="selectChange($event , 'shop')"
+					>
+						店面
+					</ListItem>
+				</List>
+				<List className="c-required">
+					<ListItem
+							Picker
+							[data]="typeENUM"
+							[extra]="selectArea"
+							[arrow]="'horizontal'"
+							[mask]="true"
+							[ngModel]="form.value.a"
+							title="类型"
+							(ngModelChange)="selectChange($event , 'type')"
+							[ngModelOptions]="{standalone: true}"
+					>
+						类型
+					</ListItem>
+				</List>
+				<List className="c-required">
+					<ListItem
+							DatePicker
+							[extra]="format(currentTime)"
+							[arrow]="'horizontal'"
+							[mode]="'time'"
+							[minDate]="minTime"
+							[ngModel]="form.value.reserveDate"
+							(onOk)="timeChange($event)"
+							[ngModelOptions]="{standalone: true}"
+					>
+						时间
+					</ListItem>
+				</List>
+
+				<InputItem
+						[clear]="true"
+						[placeholder]="'请输入预订人姓名'"
+						[content]="'姓名'"
+						formControlName="name"
+						class='c-required'
+				></InputItem>
+
+				<InputItem
+						[clear]="true"
+						[placeholder]="'请输入预订人手机号'"
+						[content]="'手机'"
+						[type]="'phone'"
+						formControlName="tel"
+						class='c-required'
+				></InputItem>
+
+				<InputItem
+						[clear]="true"
+						[placeholder]="'请输入预订人数'"
+						[content]="'人数'"
+						[type]="'money'"
+						formControlName="num"
+				></InputItem>
+
+				<InputItem
+						[clear]="true"
+						[placeholder]="'请输入备注'"
+						[content]="'备注'"
+						formControlName="remark"
+				></InputItem>
+
+				<div Button type="primary" class="btn" (click)="post()">提交预定</div>
+			</form>
+		</div>
+	</Drawer>
 </div>
+
+<ng-template #sidebar>
+	<div class='list-container'>
+		<Navbar [icon]="icon" (onLeftClick)="hideList()">
+			book
+		</Navbar>
+
+		<PullToRefresh
+				[ngStyle]="{height: (this.height - 45) + 'px'}"
+				direction="down"
+				(onRefresh)="refresh($event)"
+				[(ngModel)]="refreshState"
+				endReachedRefresh="true"
+				[footerIndicator]="{release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+		>
+			<div style="padding-top: 10px;">
+				<div *ngFor="let item of bookList" class='item-container'>
+					<Badge [text]="item.statusName" [corner]="true" [setStyle]="item.style">
+						<div class="item-top c-flex-row-space">
+							<div class="c-flex-row-start">
+								<img src="../../../../assets/img/default.jpeg" class="item-image" alt="">
+								<div>{{ item.name }}</div>
+							</div>
+							<div>
+
+							</div>
+						</div>
+
+						<div class="item-bottom c-flex-row-start c-flex-auto-wrap">
+							<div class="item-bottom-content">
+								所选店面:
+								<span class='content'>{{item.shopName}}</span>
+							</div>
+							<div class="item-bottom-content">
+								所选类型:
+								<span class='content'>{{item.typeName}}</span>
+							</div>
+							<div class="item-bottom-content">
+								手机号:
+								<span class='content'>{{item.tel}}</span>
+							</div>
+							<div class="item-bottom-content">
+								到店日期:
+								<span class='content'>{{item.reserveDate | datePie: 'y-m-d h:i' }}</span>
+							</div>
+							<div class="item-bottom-content">
+								人数:
+								<span class='content'>{{item.num | nullPipe}}</span>
+							</div>
+							<div class="item-bottom-content">
+								预定日期:
+								<span class='content'>{{item.createTime | datePie: 'y-m-d h:i' }}</span>
+							</div>
+							<div>
+								备注:
+								<span class='content'>{{item.remark | nullPipe }}</span>
+							</div>
+						</div>
+					</Badge>
+				</div>
+			</div>
+		</PullToRefresh>
+	</div>
+</ng-template>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>

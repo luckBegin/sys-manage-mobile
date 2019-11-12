@@ -9,6 +9,10 @@ import {ActivatedRoute} from "@angular/router";
 				<div class="title">403</div>
 				<div class="subTitle">该账号暂无权限访问,请联系管理员</div>
 			</div>
+			<div *ngIf="errorCode === '404'">
+				<div class="title">404</div>
+				<div class="subTitle">你访问了不存在的东西,请联系管理员</div>
+			</div>
 		</div>
 	</div>` ,
 	styles: [`

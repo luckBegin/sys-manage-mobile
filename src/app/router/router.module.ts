@@ -12,7 +12,8 @@ const routes: Routes = [
 		loadChildren : '../page/promotion/promotion.module#PromotionModule',
 		canActivate: [ LoginGuard, PermissionGuard]
 	},
-	{ path: 'error/:code' , component: ErrorComponent , data: {title: '异常提醒'}}
+	{ path: 'error/:code' , component: ErrorComponent , data: {title: '异常提醒'}} ,
+	{ path: '**' , redirectTo: 'error/404'}
 ];
 
 @NgModule({

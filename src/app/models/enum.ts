@@ -1,4 +1,5 @@
 export interface ENUM {
-	key: string;
+	key?: string| number;
+	label?: string ;
 	value: number | boolean | string;
 }

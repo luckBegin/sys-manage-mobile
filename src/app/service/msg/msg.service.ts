@@ -13,7 +13,7 @@ export class MsgService {
 
 	private position: string = 'middle' ;
 
-	public success( tip: string, fn: () => null ): void {
+	public success( tip: string, fn: () => void = null ): void {
 		this.toast.success(tip ,this.duration , fn , true , this.position)
 	}
 

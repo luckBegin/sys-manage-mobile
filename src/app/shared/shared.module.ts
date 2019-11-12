@@ -28,7 +28,7 @@ const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPi
 		...modules,
 		ReactiveFormsModule,
 	],
-	exports: [...modules, ...components, ...pipes],
+	exports: [...modules, ...components, ...pipes , ReactiveFormsModule],
 	providers: [
 		{provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true}
 	],

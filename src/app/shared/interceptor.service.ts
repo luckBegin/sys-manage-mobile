@@ -25,25 +25,10 @@ export class HttpIntercept implements HttpInterceptor {
 			headers['jwt-token'] = token;
 		}
 
-		const loginInfo = this.sgo.get('loginInfo') ;
+		const loginInfo = this.sgo.get('staffInfo') ;
+
 		if ( loginInfo ) {
 			headers['jwt-user-id'] = loginInfo.userInfo.id.toString() ;
-		}
-
-		const selectShop = this.sgo.get('selectShop');
-		if ( selectShop ) {
-			const shopId = this.sgo.get('selectShop').value ;
-			headers['jwt-shop'] = shopId.toString();
-
-			if ( req.method === 'GET' ) {
-				obj.setParams['shopId'] = shopId;
-			}
-
-			if ( req.method === 'POST' ) {
-				if (req.body && !req.body['shopId']) {
-					req.body['shopId'] = shopId;
-				}
-			}
 		}
 
 		obj['headers'] = new HttpHeaders(headers);
@@ -53,9 +38,6 @@ export class HttpIntercept implements HttpInterceptor {
 		return next.handle(req)
 			.pipe(
 				catchError((err: any) => {
-					if ( err.status === 0 ) {
-						// this.msg.error(err.message);
-					}
 					if ( err.status === 401 ) {
 						// this.msg.error('登录失效,请重新登录');
 						this.router.navigate(['/passport/login']);
