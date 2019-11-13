@@ -1,7 +1,8 @@
 import { environment } from '../../environments/environment'
 export const HOST: string = environment.HOST;
 const wx = {
-	getConfigByCode: HOST + '/wechat/getWxConfig'
+	getConfigByCode: HOST + '/wechat/getWxConfig' ,
+	msg: HOST + '' ,
 };
 
 const staff = {

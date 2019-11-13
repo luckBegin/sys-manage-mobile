@@ -10,12 +10,14 @@ import {NullPipe} from './pipe/null.pipe';
 import {NgZorroAntdMobileModule} from "ng-zorro-antd-mobile";
 import {LoginComponent} from "../default/login/login.component";
 import {ErrorComponent} from "../default/error/error.component";
+import {MenuComponent} from "../page/menu/menu.component";
 
 const modules = [CommonModule, FormsModule, NgZorroAntdMobileModule];
 
 const components = [
 	LoginComponent,
 	ErrorComponent,
+	MenuComponent
 ];
 const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPipe , NullPipe ];
 

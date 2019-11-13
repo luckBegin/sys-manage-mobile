@@ -6,7 +6,6 @@ import {GET} from "../../decorators";
 import {Observable} from "rxjs";
 import {RESPONSE} from "../../models";
 import {SessionStorageService} from "../storage";
-import {disableDebugTools} from "@angular/platform-browser";
 
 @Injectable({providedIn:"root"})
 export class StaffService {
@@ -24,9 +23,9 @@ export class StaffService {
 		if( this.permissionCache.hasOwnProperty(path)){
 			return this.permissionCache[path]
 		} else {
-			const menuInfo: any[] = (this.sgo.get('staffInfo').menuInfo[2] || {}).children;
+			let menuInfo: any[] = (this.sgo.get('staffInfo').menuInfo[2] || {}).children;
 			if( menuInfo.length > 0 && path) {
-				const menuArr: any[] = menuInfo  ;
+				let menuArr: any[] = menuInfo  ;
 				let permission = false ;
 				while (menuArr.length > 0) {
 					const item = menuArr.shift() ;
@@ -34,7 +33,7 @@ export class StaffService {
 						permission = true ;
 						break ;
 					} else {
-						( !!item.children ) && ( menuArr.push( item.children ) ) ;
+						( !!item.children ) && ( menuArr = menuArr.concat( item.children ) ) ;
 					}
 				}
 				return permission ;

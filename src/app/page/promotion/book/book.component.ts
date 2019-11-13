@@ -23,7 +23,7 @@ export class PromotionBookComponent implements OnInit{
 		private readonly msg: MsgService,
 		private readonly toast: ToastService,
 		private readonly modal: ModalService
-	){} ;
+	){};
 
 	ngOnInit(): void {
 		this.getTypeEnum() ;

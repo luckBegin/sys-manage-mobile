@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit{
 				this.sgo.set('jsApiConfig' , res.data.jsApiConfig) ;
 				this.sgo.set('oid' , res.data.oid );
 				this.sgo.set('uid' , res.data.uid);
-
 				this.getUsrInfo(res.data.uid);
  			})
 	}
@@ -58,6 +57,7 @@ export class LoginComponent implements OnInit{
 	}
 
 	private setRedirect(): void {
-		this.router.navigate([this.redirect])
+		if( this.redirect )
+			this.router.navigate([this.redirect])
 	}
 }

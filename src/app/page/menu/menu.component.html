@@ -1,0 +1,24 @@
+<div class = 'c-full-container'>
+	<Navbar>
+		系统菜单列表
+	</Navbar>
+	<div class="section-block" *ngFor="let item of menu">
+		<div *ngIf="item.children.length > 0">
+			<div class="section-title">
+				{{ item.name }}
+			</div>
+			<div class="block-container c-flex-row-start c-flex-auto-wrap">
+				<div
+					*ngFor="let subItem of item.children"
+					class="c-flex-column-center menu-item"
+					(click)='toMenu(subItem)'
+				>
+					<img src="../../assets/img/menu/default.png" alt="">
+					<div>
+						{{ subItem.name }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
