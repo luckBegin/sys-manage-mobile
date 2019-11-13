@@ -126,26 +126,23 @@
 								<img src="../../../../assets/img/default.jpeg" class="item-image" alt="">
 								<div>{{ item.name }}</div>
 							</div>
-							<div>
-
-							</div>
 						</div>
 
 						<div class="item-bottom c-flex-row-start c-flex-auto-wrap">
 							<div class="item-bottom-content">
-								所选店面:
+								店面:
 								<span class='content'>{{item.shopName}}</span>
 							</div>
 							<div class="item-bottom-content">
-								所选类型:
+								类型:
 								<span class='content'>{{item.typeName}}</span>
 							</div>
 							<div class="item-bottom-content">
-								手机号:
+								手机:
 								<span class='content'>{{item.tel}}</span>
 							</div>
 							<div class="item-bottom-content">
-								到店日期:
+								到店时间:
 								<span class='content'>{{item.reserveDate | datePie: 'y-m-d h:i' }}</span>
 							</div>
 							<div class="item-bottom-content">
@@ -153,12 +150,31 @@
 								<span class='content'>{{item.num | nullPipe}}</span>
 							</div>
 							<div class="item-bottom-content">
-								预定日期:
+								登记时间:
 								<span class='content'>{{item.createTime | datePie: 'y-m-d h:i' }}</span>
 							</div>
 							<div>
 								备注:
 								<span class='content'>{{item.remark | nullPipe }}</span>
+							</div>
+						</div>
+
+						<div class = 'item-footer'
+						     *ngIf="item.isNow && (item.status === 0 || item.status === 2)"
+						>
+							<div
+								Button class="button_edit"
+								*ngIf="item.status === 0"
+								(click)="editChanel(item)"
+							>
+								修改
+							</div>
+							<div
+								Button class="button_cancel"
+								(click)="cancelItem(item)"
+								*ngIf="item.status === 0 || item.status === 2"
+							>
+								取消
 							</div>
 						</div>
 					</Badge>

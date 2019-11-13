@@ -6,9 +6,8 @@ import {AdaptorUtils, DateUtils} from "../../../shared/utils";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SessionStorageService} from "../../../service/storage";
 import {MsgService} from "../../../service/msg/msg.service";
-import {ToastService} from "ng-zorro-antd-mobile";
+import {ModalService, ToastService} from "ng-zorro-antd-mobile";
 import {BookListQueryModel} from "./query.model";
-import {nodeDebugInfo} from "@angular/compiler-cli/src/ngtsc/util/src/typescript";
 
 @Component({
 	selector: 'promotion-book' ,
@@ -22,7 +21,8 @@ export class PromotionBookComponent implements OnInit{
 		private readonly fb: FormBuilder ,
 		private readonly sgo: SessionStorageService ,
 		private readonly msg: MsgService,
-		private readonly toast: ToastService
+		private readonly toast: ToastService,
+		private readonly modal: ModalService
 	){} ;
 
 	ngOnInit(): void {
@@ -45,7 +45,8 @@ export class PromotionBookComponent implements OnInit{
 	public bookList: any[] = [];
 	public refreshState: any = { currentState: 'deactivate', drag: false };
 	private bookListQueryModel: BookListQueryModel ;
-	private dataComplate: boolean = false ;
+	private dataComplete: boolean = false ;
+	private editMark: boolean = false ;
 
 	public form: FormGroup = this.fb.group({
 		name: [ null, [ Validators.required ] ],
@@ -55,7 +56,7 @@ export class PromotionBookComponent implements OnInit{
 		num: [ null ] ,
 		shopId: [ null, [ Validators.required ] ],
 		id: [null],
-		status: [ null ] ,
+		status: [ 0 ] ,
 		remark: [ null ]
 	});
 
@@ -95,12 +96,20 @@ export class PromotionBookComponent implements OnInit{
 			this.msg.warn('请填写每项信息后在提交') ;
 			return ;
 		}
-		this.toast.loading('提交中。。。')
-		this.service.bookPost(this.form.value)
+		this.toast.loading('提交中。。。',0);
+		this.form.patchValue({ status: 0}) ;
+
+		const service = this.editMark ? this.service.bookPut.bind(this.service) : this.service.bookPost.bind(this.service) ;
+		service(this.form.value)
 			.subscribe((res: RESPONSE) => {
 				this.form.reset();
-				this.msg.success('预订成功') ;
-				this.toast.hide()
+				this.msg.success('操作成功') ;
+				this.toast.hide();
+				this.editMark = false ;
+
+				this.selectShop = '请选择' ;
+				this.selectArea = '请选择' ;
+				this.currentTime = null ;
 			} , err => {
 				this.toast.hide();
 			})
@@ -119,7 +128,7 @@ export class PromotionBookComponent implements OnInit{
 	}
 
 	public refresh($event: any): void {
-		if( this.dataComplate ) {
+		if( this.dataComplete ) {
 			return
 		} else {
 			this.bookListQueryModel.currentPage += 1;
@@ -128,17 +137,19 @@ export class PromotionBookComponent implements OnInit{
 		}
 	}
 
-	private getList(): void{
+	private getList(refresh: boolean = false): void{
 		this.service.getStaffBookList(this.bookListQueryModel)
 			.subscribe( (res: RESPONSE) => {
+				this.toast.hide();
 				if( res.data && res.data.length ) {
+					const now = DateUtils.getNow(false , 'y-m-d');
 					res.data.forEach( item => {
 						const type = this.typeENUM.find( subItem => subItem.value === item.typeId );
 						const shop = this.shopENUM.find( subItem => subItem.value === item.shopId );
 						item.typeName = (type || {label: ''} ).label ;
 						item.shopName = (shop || {label: ''} ).label ;
 						item.statusName = RoomService.BookStatsEnums.find( subItem => subItem.value === item.status ).key
-
+						item.isNow = now === DateUtils.format(item.reserveDate , 'y-m-d') ;
 						if( item.status === 0 )
 							item.style = { background:'rgb(255, 91, 5)'}
 						if( item.status === 1 )
@@ -146,14 +157,53 @@ export class PromotionBookComponent implements OnInit{
 						if( item.status === 2 )
 							item.style = { background: 'rgb(33, 182, 138)' }
 					});
-					this.bookList = this.bookList.concat(res.data) ;
+					if(!refresh)
+						this.bookList = this.bookList.concat(res.data) ;
+					else
+						this.bookList = this.bookList = res.data ;
 				}
 				if( res.page.totalNumber && res.page.totalNumber <= this.bookList.length ) {
-					this.dataComplate = true ;
+					this.dataComplete = true ;
 					this.refreshState.currentState = 'noMore'
 				} else {
 					this.refreshState.currentState = 'finish';
 				}
 			})
+	}
+
+	public cancelItem( item: any): void {
+		this.modal.alert('取消', '确认取消该预定?', [
+			{ text: '取消'},
+			{ text: '确定', onPress: () => {
+				this.bookCancel(item) ;
+			}}
+		]);
+	}
+
+	private bookCancel( item: any ): void {
+		this.toast.loading('处理中...',0) ;
+		this.service.bookPut({ id: item.id , status: 1 })
+			.subscribe( ( res:RESPONSE ) => {
+				this.msg.success('预定已取消') ;
+				this.bookListQueryModel = new BookListQueryModel ;
+				this.getList(true) ;
+			})
+	}
+
+	public editChanel( item: any ): void {
+		this.modal.alert('修改', '确认修改该预定信息?', [
+			{ text: '取消'},
+			{ text: '确定', onPress: () => {
+				item.reserveDate = DateUtils.format( item.reserveDate ) ;
+				this.form.patchValue(item) ;
+				this.bookListShow = false ;
+				this.bookListQueryModel = new BookListQueryModel ;
+				this.bookList = [] ;
+				this.selectShop = (this.shopENUM.find(subItem => subItem.value === item.shopId)).label as string ;
+				this.selectArea = (this.typeENUM.find(subItem => subItem.value === item.typeId)).label as string ;
+				this.currentTime = new Date( item.reserveDate ) ;
+				this.editMark = true ;
+			}}
+		]);
 	}
 }

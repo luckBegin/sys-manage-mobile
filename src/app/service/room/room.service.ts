@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core' ;
 import {API} from "../API";
-import {GET, POST} from "../../decorators";
+import {GET, POST, PUT} from "../../decorators";
 import {Observable} from "rxjs";
 import {ENUM, RESPONSE} from "../../models";
 import {HttpClient} from "@angular/common/http";
@@ -15,6 +15,9 @@ export class RoomService {
 
 	@POST(API.room.book)
 	bookPost( data?: any ): any | Observable< RESPONSE > {} ;
+
+	@PUT(API.room.book)
+	bookPut( data?: any ): any | Observable< RESPONSE > {} ;
 
 	@GET(API.room.book +'/staff')
 	getStaffBookList( query?: any ): any | Observable< RESPONSE > {} ;
