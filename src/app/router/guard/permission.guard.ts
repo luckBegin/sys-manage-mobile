@@ -15,11 +15,12 @@ export class PermissionGuard implements CanActivate {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-		if ( this.staffSer.hasPermission(state.url) ) {
-			return true;
-		} else {
-			this.router.navigate(['/error/403']) ;
-			return true;
-		}
+		// if ( this.staffSer.hasPermission(state.url) ) {
+		// 	return true;
+		// } else {
+		// 	this.router.navigate(['/error/403']) ;
+		// 	return true;
+		// }
+		return true ;
 	}
 }

@@ -1,0 +1,30 @@
+<div class="c-full-container">
+	<Navbar>
+		微信绑定
+	</Navbar>
+
+	<SearchBar [placeholder]="'按姓名搜索'" (onSubmit)="search($event)"></SearchBar>
+
+	<PullToRefresh
+		[ngStyle]="{height: (this.height - 45) + 'px'}"
+		direction="down"
+		(onRefresh)="refresh($event)"
+		[(ngModel)]="refreshState"
+		endReachedRefresh="true"
+		[footerIndicator]="{release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+	>
+		<div style="padding-bottom: 20px;">
+			<div class="staff-item c-flex-row-space" *ngFor="let item of staffList ">
+				<div>
+					<div style="margin-bottom: 10px;">
+						姓名: {{ item.name }}
+						<Badge [setStyle]="{background: 'rgb(40, 187, 40)'}" *ngIf="item.openid" [text]="'已绑定'"></Badge>
+						<Badge *ngIf="!item.openid" [text]="'未绑定'"></Badge>
+					</div>
+					<div>所属店: {{ item.shopName }}</div>
+				</div>
+				<div Button [type]="'primary'" [inline]="true" [size]="'small'" (click)="bindWx(item)">绑定</div>
+			</div>
+		</div>
+	</PullToRefresh>
+</div>

@@ -1,0 +1,89 @@
+<div class="c-full-container">
+	<Drawer
+			class="my-drawer"
+			[ngStyle]="{ minHeight: this.height + 'px' , width: '100%'}"
+			[sidebarStyle]="{width:'100%'}"
+			[enableDragHandle]="false"
+			[open]="msgRecordShow"
+			[sidebar]="sidebar"
+	>
+		<Navbar [rightContent]="rightContent">
+			客服消息
+		</Navbar>
+
+		<PullToRefresh
+				[ngStyle]="{height: (this.height - 45) + 'px'}"
+				direction="down"
+				(onRefresh)="refresh($event)"
+				[(ngModel)]="refreshState"
+				endReachedRefresh="true"
+				[footerIndicator]="{release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+		>
+			<div style="padding-bottom: 20px;">
+				<div class="msg-item" *ngFor="let item of msgList" (click)="showMsg(item)">
+					<div class = 'msg-head'>
+						<img
+								[src]="item.wxInfo ? item.wxInfo.headimgurl : '../../../../assets/img/default.jpeg' "
+								alt=""
+								class = 'msg-head-image'
+						>
+					</div>
+					<div class="msg-content">
+						<div class="msg-name c-flex-row-space">
+						<span>
+							{{ item.wxInfo ? item.wxInfo.nickname : '未知昵称'}}
+						</span>
+							<span class = 'msg-time'>
+							{{ item.createTime | datePie: 'm-d h:i'}}
+						</span>
+						</div>
+						<div class = 'msg-detail'>
+							<div *ngIf="item.type === 'text' ">
+								{{ item.content }}
+							</div>
+
+							<div *ngIf="item.type === 'voice' ">
+								【收到了语音消息】
+							</div>
+
+							<div *ngIf="item.type === 'image'">
+								【收到了图片信息】
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</PullToRefresh>
+	</Drawer>
+</div>
+
+<ng-template #rightContent>
+	<div class="c-flex-row-end c-full-container">
+		<img [src]="wxUserInfo.headimgurl" alt="" class = 'head-image'>
+		<div>
+			{{ usrInfo.name }}
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #sidebar>
+	<div class="list-container" *ngIf="userMsg.info">
+		<Navbar [icon]="icon" (onLeftClick)="hideList()" [rightContent]="msgRightContent">
+			{{ userMsg.info.nickname ? userMsg.info.nickname : '未知昵称' }}
+		</Navbar>
+
+		<div>
+
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>
+
+<ng-template #msgRightContent>
+	<div (click)="bindToWx()">
+		绑定
+	</div>
+</ng-template>

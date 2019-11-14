@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core' ;
 import {HttpClient} from "@angular/common/http";
 import {MsgService} from "../msg/msg.service";
 import {API} from "../API";
-import {GET} from "../../decorators";
+import {GET, POST} from "../../decorators";
 import {Observable} from "rxjs";
 import {RESPONSE} from "../../models";
 import {SessionStorageService} from "../storage";
@@ -15,8 +15,14 @@ export class StaffService {
 		private readonly sgo: SessionStorageService
 	){}
 
-	@GET(API.staff.info)
+	@GET(API.staff.list + '/info')
 	staff( para: any ): any | Observable< RESPONSE > {}
+
+	@GET(API.staff.list)
+	list( para?: any): any | Observable< RESPONSE> { } ;
+
+	@POST(API.staff.list + '/bindWx')
+	bindWx( data?: any): any | Observable< RESPONSE > {} ;
 
 	private permissionCache: { [key:string]: boolean} = {} ;
  	public hasPermission(path: string): boolean{
