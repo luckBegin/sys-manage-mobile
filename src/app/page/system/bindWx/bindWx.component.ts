@@ -75,7 +75,7 @@ export class BindWxComponent implements OnInit{
 		this.modal.alert('绑定', `确定将该微信绑定到 ${item.name}`, [
 			{ text: '取消'},
 			{ text: '确定', onPress: () => {
-
+				console.log(13)
 			}},
 		]);
 	}
