@@ -36,7 +36,7 @@ export class MsgComponent implements OnInit{
 	public refreshState: any = { currentState: 'deactivate', drag: false };
 	public msgList: any[] = [] ;
 	public userMsg: any = {} ;
-
+	public msgListUser: any[] = [] ;
 	private getList(): void{
 		this.wxMsgSer.get( this.queryModel )
 			.subscribe( (res: RESPONSE) => {
@@ -68,6 +68,7 @@ export class MsgComponent implements OnInit{
 			.subscribe( ( res: RESPONSE) => {
 				this.msgRecordShow = true ;
 				this.userMsg.info = item ;
+				this.msgListUser = res.data ;
 			})
 	}
 
