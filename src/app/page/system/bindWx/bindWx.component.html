@@ -1,5 +1,5 @@
 <div class="c-full-container">
-	<Navbar>
+	<Navbar [icon]="icon" (onLeftClick)="back()">
 		微信绑定
 	</Navbar>
 
@@ -11,7 +11,7 @@
 		(onRefresh)="refresh($event)"
 		[(ngModel)]="refreshState"
 		endReachedRefresh="true"
-		[footerIndicator]="{release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+		[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '已无更多数据' }"
 	>
 		<div style="padding-bottom: 20px;">
 			<div class="staff-item c-flex-row-space" *ngFor="let item of staffList ">
@@ -28,3 +28,6 @@
 		</div>
 	</PullToRefresh>
 </div>
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>

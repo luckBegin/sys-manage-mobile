@@ -3,9 +3,10 @@ import {StaffService} from "../../../service/system";
 import {MsgService} from "../../../service/msg/msg.service";
 import {RESPONSE} from "../../../models";
 import { QueryModel } from './query.model';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SessionStorageService} from "../../../service/storage";
 import {ModalService} from "ng-zorro-antd-mobile";
+import { Location } from '@angular/common'
 @Component({
 	selector: 'system-bindWx' ,
 	styleUrls: ['./bindWx.component.less'],
@@ -17,7 +18,8 @@ export class BindWxComponent implements OnInit{
 		private readonly msg: MsgService,
 		private readonly activeRoute: ActivatedRoute,
 		private readonly sgo: SessionStorageService,
-		private readonly modal: ModalService
+		private readonly modal: ModalService,
+		private readonly location: Location
 	){}
 
 
@@ -27,6 +29,9 @@ export class BindWxComponent implements OnInit{
 			const shopIds = shopInfo.map( item => item.id );
 			this.shopId = shopIds.join(',');
 		}
+		this.activeRoute.queryParams.subscribe( res => {
+			this.oid = res.oid ;
+		})
 		this.getList() ;
 	}
 
@@ -34,10 +39,10 @@ export class BindWxComponent implements OnInit{
 	private shopId: string  ;
 	public height: number = document.documentElement.clientHeight;
 	private dataComplete: boolean = false ;
-
+	private oid: string = '' ;
 	private getList(): void {
 		this.queryModel.shopId = this.shopId ;
-		this.service.list(this.queryModel)
+		this.service.get(this.queryModel)
 			.subscribe( (res: RESPONSE) => {
 				if(res.data && res.data.length > 0) {
 					const arr = res.data.map( item => {
@@ -75,8 +80,16 @@ export class BindWxComponent implements OnInit{
 		this.modal.alert('绑定', `确定将该微信绑定到 ${item.name}`, [
 			{ text: '取消'},
 			{ text: '确定', onPress: () => {
-				console.log(13)
+				this.service.put({ id: item.id , openId: this.oid })
+					.subscribe( res => {
+						this.staffList = [] ;
+						this.msg.success('绑定成功') ;
+						this.getList() ;
+					})
 			}},
 		]);
+	}
+	public back(): void{
+		this.location.back() ;
 	}
 }

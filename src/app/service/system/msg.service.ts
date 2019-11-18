@@ -18,4 +18,6 @@ export class WxMsgService {
 
 	@GET(API.wx.msgByUser)
 	getMsgByUser( para?: any): any | Observable< RESPONSE > {} ;
+
+
 }

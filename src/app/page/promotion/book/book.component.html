@@ -116,7 +116,7 @@
 				(onRefresh)="refresh($event)"
 				[(ngModel)]="refreshState"
 				endReachedRefresh="true"
-				[footerIndicator]="{release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+				[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '已无更多数据' }"
 		>
 			<div style="padding-top: 10px;">
 				<div *ngFor="let item of bookList" class='item-container'>
