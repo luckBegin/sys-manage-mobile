@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core' ;
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {RESPONSE} from "../../models";
 import {GET} from "../../decorators";
 import {API} from "../API";
@@ -14,5 +14,7 @@ export class SysShopService {
 	){} ;
 
 	@GET(API.system.shop + '/all')
-	getAll( para?: any): any | Observable< RESPONSE > {} ;
+	public getAll( para?: any): any | Observable< RESPONSE > {} ;
+
+	public shopChanged$ : Subject<any> = new Subject() ;
 }

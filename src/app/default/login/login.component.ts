@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit{
 			this.staffSer.staff({uid})
 				.subscribe((res:RESPONSE) => {
 					this.sgo.set('staffInfo',res.data) ;
+					this.sgo.set('selectShopId', res.data.shopInfo[0].id );
 					this.setRedirect();
 				})
 		}

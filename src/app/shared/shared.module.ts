@@ -11,13 +11,15 @@ import {NgZorroAntdMobileModule} from "ng-zorro-antd-mobile";
 import {LoginComponent} from "../default/login/login.component";
 import {ErrorComponent} from "../default/error/error.component";
 import {MenuComponent} from "../page/menu/menu.component";
+import {CommonShopSelectComponent} from "./component/shop-select/shop-select.component";
 
 const modules = [CommonModule, FormsModule, NgZorroAntdMobileModule];
 
 const components = [
 	LoginComponent,
 	ErrorComponent,
-	MenuComponent
+	MenuComponent,
+	CommonShopSelectComponent
 ];
 const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPipe , NullPipe ];
 

@@ -1,0 +1,13 @@
+<div class="wrapper" *ngIf="shops.length">
+	<div
+			Picker
+			[data]="shops"
+			[mask]="true"
+			[title]="'选择'"
+			[(ngModel)]="shop"
+			(ngModelChange)="select($event)"
+			class = 'c-flex-row-start'
+	>
+		<span class = 'shop-name'>{{ shop[0].label }}</span><Icon [type]="'down'"></Icon>
+	</div>
+</div>

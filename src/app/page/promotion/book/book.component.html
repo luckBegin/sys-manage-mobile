@@ -7,7 +7,7 @@
 			[open]="bookListShow"
 			[sidebar]="sidebar"
 	>
-		<Navbar>
+		<Navbar [rightContent]="rightContent">
 			book
 		</Navbar>
 		<div class="list">
@@ -186,4 +186,8 @@
 
 <ng-template #icon>
 	<Icon [type]="'left'"></Icon>
+</ng-template>
+
+<ng-template #rightContent>
+	<common-shop-select></common-shop-select>
 </ng-template>
