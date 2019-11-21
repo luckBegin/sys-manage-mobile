@@ -2,7 +2,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Router} from '@angular/router';
 import {SessionStorageService} from '../../service/storage' ;
-
+import { environment } from '../../../environments/environment'
 @Injectable({providedIn: 'root'})
 export class LoginGuard implements CanActivate, OnInit {
 
@@ -20,7 +20,7 @@ export class LoginGuard implements CanActivate, OnInit {
 		if ( staffInfo ) {
 			return true;
 		} else {
-			window.location.href = 'http://api.jpgqs.cn/wechat/menu?path=' + state.url ;
+			window.location.href =  environment.HOST +'/wechat/menu?path=' + state.url ;
 			return true;
 		}
 	}
