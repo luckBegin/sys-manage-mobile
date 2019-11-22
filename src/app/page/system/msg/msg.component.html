@@ -101,7 +101,10 @@
 </ng-template>
 
 <ng-template #msgRightContent>
-	<div (click)="bindToWx()">
+	<div (click)="bind('staff')" style="margin-right: 10px;">
+		添加
+	</div>
+	<div (click)="bind('wx')">
 		绑定
 	</div>
 </ng-template>

@@ -69,11 +69,6 @@
   border-radius: 0 !important;
 }
 
-.c-formSec {
-  width: 70%;
-  margin-bottom: 20px !important;
-}
-
 .c-container {
   width: 100%;
   padding-right: 10px;
@@ -177,4 +172,43 @@
 .c-text-overflow{
   text-overflow:ellipsis;
   white-space: nowrap;
+}
+.c-form{
+  padding: 10px 0;
+}
+.c-form , .c-form-section{
+  width: 100%;
+}
+.c-form-section{
+  margin-bottom: 20px;
+}
+.c-form-title{
+  position: relative;
+  padding: 0 20px;
+  color: #8c8c8c;
+  font-size: 18px;
+}
+.c-form-title-require::before{
+  display: inline-block;
+  content: "*";
+  line-height: 1;
+  font-size: 14px;
+  color: #f5222d;
+  position: absolute;
+  left: 10px;
+  z-index: 2;
+  top: 30%;
+}
+.c-form-container{
+  background: #fff;
+  padding: 0 20px;
+  margin-top: 5px;
+}
+.c-form-checkbox{
+  width: 50%;
+}
+.c-form-input{
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
 }

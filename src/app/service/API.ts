@@ -19,7 +19,8 @@ const room = {
 
 const system = {
 	shop: HOST + '/system/shop' ,
-	role: HOST + '/system/role'
+	role: HOST + '/system/role' ,
+	depart: HOST + '/system/department'
 };
 
 export const API = { wx , staff , room , system };

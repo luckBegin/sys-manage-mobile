@@ -76,9 +76,10 @@ export class MsgComponent implements OnInit{
 		this.msgRecordShow = false ;
 	}
 
-	public bindToWx(): void {
+	public bind(type: 'wx' | 'staff'): void {
 		if( this.userMsg.info.openId ) {
-			this.router.navigate(['/system/bindWx'] , {
+			const url = type === 'wx' ? '/system/bindWx' : '/system/staff';
+ 			this.router.navigate([url] , {
 				queryParams: {
 					oid:this.userMsg.info.openId
 				}
