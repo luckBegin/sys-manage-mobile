@@ -1,0 +1,142 @@
+<div>
+	<Navbar [icon]="icon" (onLeftClick)="back()">
+		添加管理员
+	</Navbar>
+
+	<div class='form-wrapper'>
+		<form [formGroup]="form" class = 'c-form'>
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					所属店面
+				</div>
+				<div class = 'c-form-container c-flex-row-start'>
+					<div class="c-form-checkbox" *ngFor="let item of shopENUM">
+						<CheckboxItem
+							[name]="item.label"
+							[value]="item.value"
+							[ngModel]="form.value.shopId"
+							(onChange)="selectChange($event , 'shop')"
+							[ngModelOptions]="{standalone: true}"
+						>
+							{{ item.label }}
+						</CheckboxItem>
+					</div>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					所属角色
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<div class="c-form-checkbox" *ngFor="let item of roleENUM">
+						<CheckboxItem
+								[name]="item.label"
+								[value]="item.value"
+								[ngModel]="form.value.roleIds"
+								(onChange)="selectChange($event , 'role')"
+								[ngModelOptions]="{standalone: true}"
+						>
+							{{ item.label }}
+						</CheckboxItem>
+					</div>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					所属部门
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<div class="c-form-checkbox" *ngFor="let item of departENUM">
+						<CheckboxItem
+								[name]="item.label"
+								[value]="item.value"
+								[ngModel]="form.value.departIds"
+								(onChange)="selectChange($event , 'depart')"
+								[ngModelOptions]="{standalone: true}"
+						>
+							{{ item.label }}
+						</CheckboxItem>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					姓名
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入姓名"
+							type="text"
+							formControlName="name"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					登录账号
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入登录账号"
+							type="text"
+							formControlName="username"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					密码(默认密码为12123)
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入密码"
+							type="password"
+							formControlName="password"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title">
+					手机号
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入手机号"
+							type="text"
+							formControlName="phoneNumber"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title">
+					备注
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入备注"
+							type="text"
+							formControlName="remark"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div Button type="primary" class="btn" (click)="add()">创建管理员</div>
+		</form>
+	</div>
+</div>
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>

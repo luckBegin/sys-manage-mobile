@@ -1,0 +1,59 @@
+<div class="c-full-container">
+	<Navbar [icon]="icon" [rightContent]="rightContent">
+		ri
+	</Navbar>
+	<div class = 'detail-container c-flex-row-start' *ngIf="!emptyData">
+		<div class="left c-text-overflow">
+			<div class="role-item"
+			     *ngFor="let item of role" (click)="roleChange( item.label ) "
+			     [ngClass]="{'role-item-active': listQueryModel.roleId === item.label }"
+			>
+				{{ item.key }}
+			</div>
+		</div>
+		<div class="right" [ngClass]="{ hide: loading === true }">
+			<PullToRefresh
+					[ngStyle]="{height: (this.height - 45) + 'px'}"
+					[direction]="'up'"
+					(onRefresh)="refresh($event)"
+					[(ngModel)]="refreshState"
+					[endReachedRefresh] = 'false'
+					[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '' }"
+			>
+				<div style="margin-bottom: 20px;">
+					<div class="c-flex-row-space header-wrapper">
+						<div class = 'total-count'> 总计: {{ totalNumber }}</div>
+						<div Button [type]="'primary'"
+						     [inline]="true" [size]="'small'"
+						     [icon]="'check-circle-o'"
+						     (click)="add()"
+						>
+							添加
+						</div>
+					</div>
+					<div *ngIf="staffList.length > 0">
+						<div class="staff-item c-flex-row-space" *ngFor="let item of staffList ">
+							<div>
+								<div style="margin-bottom: 10px;">
+									姓名: {{ item.name }}
+								</div>
+								<div>所属店: {{ item.shopName }}</div>
+							</div>
+							<div Button [type]="'warning'" [inline]="true" [size]="'small'" (click)="remove(item)">移除</div>
+						</div>
+					</div>
+				</div>
+				<common-empty-data *ngIf= 'staffList.length <= 0 '></common-empty-data>
+			</PullToRefresh>
+		</div>
+	</div>
+	<common-empty-data *ngIf="emptyData"></common-empty-data>
+</div>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>
+
+<ng-template #rightContent>
+	<common-shop-select></common-shop-select>
+</ng-template>

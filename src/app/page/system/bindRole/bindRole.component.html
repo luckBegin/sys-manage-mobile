@@ -1,0 +1,39 @@
+<div class="c-full-container">
+	<Navbar [icon]="icon" [rightContent]="rightContent" (onLeftClick)="back()">
+		添加
+	</Navbar>
+
+	<SearchBar [placeholder]="'按姓名搜索'" (onSubmit)="search($event)"></SearchBar>
+
+	<PullToRefresh
+		[ngStyle]="{height: (this.height - 45) + 'px'}"
+		[direction]="'up'"
+		(onRefresh)="refresh($event)"
+		[(ngModel)]="refreshState"
+		endReachedRefresh="true"
+		[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+	>
+		<div style="padding-bottom: 20px;">
+			<div class="staff-item c-flex-row-space" *ngFor="let item of staffList ">
+				<div>
+					<div style="margin-bottom: 10px;">
+						姓名: {{ item.name }}
+						<Badge *ngIf="selected.includes(item)" [text]="'已选择'"></Badge>
+					</div>
+					<div>所属店: {{ item.shopName }}</div>
+				</div>
+				<div Button [type]="selected.includes(item) ? 'warning' : 'primary'" [inline]="true" [size]="'small'" (click)="select(item)">
+					{{ selected.includes(item)? '移除': '选择'}}
+				</div>
+			</div>
+		</div>
+	</PullToRefresh>
+</div>
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>
+
+
+<ng-template #rightContent>
+	<div (click)="add()" *ngIf="selected.length">添加</div>
+</ng-template>

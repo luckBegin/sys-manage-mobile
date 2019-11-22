@@ -21,6 +21,9 @@ export class StaffService {
 	@GET(API.staff.list)
 	get( para?: any): any | Observable< RESPONSE> { } ;
 
+	@POST(API.staff.list)
+	post( para?: any): any | Observable< RESPONSE> { } ;
+
 	@PUT(API.staff.list)
 	put( data?: any): any | Observable< RESPONSE > {} ;
 
