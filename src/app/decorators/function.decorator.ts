@@ -1,11 +1,5 @@
 const recursiveCall = function(arr : Array< Function > , args){
     if(arr.length == 0){
-        // arr[0].apply(this , args)
-        //     .subscribe(
-        //         res => {
-        //             console.log(res) ;
-        //         }
-        //     )
     }else{
         try {
             arr[0].apply(this , args)
@@ -19,8 +13,8 @@ const recursiveCall = function(arr : Array< Function > , args){
         }catch (e) {
             arr.shift() ;
             recursiveCall.call(this , arr  , args) ;
-        };
-    };
+        }
+    }
 };
 
 export function Before( fncName : string | Function ) : MethodDecorator {

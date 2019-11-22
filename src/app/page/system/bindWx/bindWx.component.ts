@@ -73,6 +73,7 @@ export class BindWxComponent implements OnInit{
 		this.queryModel = new QueryModel;
 		this.queryModel.name = $event ;
 		this.queryModel.shopId = this.shopId ;
+		this.staffList = [] ;
 		this.getList() ;
 	}
 

@@ -7,7 +7,7 @@
 
 	<PullToRefresh
 		[ngStyle]="{height: (this.height - 45) + 'px'}"
-		direction="down"
+		[direction]="'up'"
 		(onRefresh)="refresh($event)"
 		[(ngModel)]="refreshState"
 		endReachedRefresh="true"
