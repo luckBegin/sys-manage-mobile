@@ -1,13 +1,15 @@
 import {Injectable} from "@angular/core";
-import {ToastService} from "ng-zorro-antd-mobile";
+import {ModalService, ToastService} from "ng-zorro-antd-mobile";
 import {Observable, timer} from "rxjs";
 import {Location} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class BasicService {
 	constructor(
 		private readonly toast: ToastService ,
-		private readonly location: Location
+		private readonly location: Location ,
+		private readonly router: Router,
 	){} ;
 
 	private _currentHide: boolean = true ;
@@ -27,6 +29,16 @@ export class BasicService {
 	}
 
 	public historyBack(): void{
-		this.location.back() ;
+		const len: number = History.length ;
+		console.log( 'history.length=' + len ) ;
+		if(len) {
+			this.location.back()
+ 		} else {
+			this.navigateToMenu();
+		}
+	}
+
+	public navigateToMenu(): void {
+		this.router.navigate(['/menu'])
 	}
 }

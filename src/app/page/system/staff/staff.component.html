@@ -14,7 +14,7 @@
 						<CheckboxItem
 							[name]="item.label"
 							[value]="item.value"
-							[ngModel]="form.value.shopId"
+							[(ngModel)]="item.check"
 							(onChange)="selectChange($event , 'shop')"
 							[ngModelOptions]="{standalone: true}"
 						>
@@ -33,7 +33,7 @@
 						<CheckboxItem
 								[name]="item.label"
 								[value]="item.value"
-								[ngModel]="form.value.roleIds"
+								[ngModel]="item.check"
 								(onChange)="selectChange($event , 'role')"
 								[ngModelOptions]="{standalone: true}"
 						>
@@ -52,7 +52,7 @@
 						<CheckboxItem
 								[name]="item.label"
 								[value]="item.value"
-								[ngModel]="form.value.departIds"
+								[ngModel]="item.check"
 								(onChange)="selectChange($event , 'depart')"
 								[ngModelOptions]="{standalone: true}"
 						>
@@ -133,7 +133,7 @@
 				</div>
 			</div>
 
-			<div Button type="primary" class="btn" (click)="add()">创建管理员</div>
+			<div Button type="primary" class="c-button" (click)="add()">创建管理员</div>
 		</form>
 	</div>
 </div>

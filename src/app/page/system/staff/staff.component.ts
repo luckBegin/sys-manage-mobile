@@ -31,7 +31,7 @@ export class SystemStaffComponent implements OnInit{
 		this.activeRoute.queryParams.subscribe( res => {
 			this.oid = res.oid ;
 			this.form.patchValue({
-				openId: res.oid 
+				openId: res.oid
 			})
 		});
 		const shopInfo = this.sgo.get('staffInfo').shopInfo ;
@@ -109,22 +109,42 @@ export class SystemStaffComponent implements OnInit{
 			})
 	}
 	private add(): void{
+		console.log( this ) ;
 		this.form.patchValue({
-			roleIds: this.selectedRole.join(','),
-			shopId: this.selectedShop.join(','),
-			departIds: this.selectDepart.join(',')
+			roleIds: this.selectedRole,
+			shopId: this.selectedShop,
+			departIds: this.selectDepart
 		});
 
 		if( !this.form.valid ) {
-			this.msg.error('请检查每项填写的信息')
+			this.msg.error('请检查每项填写的信息') ;
 			return ;
 		}
 		this.staff.post( this.form.value )
 			.subscribe( ( res: RESPONSE ) => {
 				if( this.oid ) {
-					this.basicSer.historyBack() ;
+					this.msg.success('添加成功', () => {
+						this.basicSer.historyBack() ;
+					})
 				} else {
+					this.msg.success('添加成功');
 					this.form.reset();
+
+					this.departENUM = this.departENUM.map( item => {
+						item.check = false ;
+						return item ;
+					});
+
+					this.roleENUM = this.roleENUM.map( item => {
+						item.check = false ;
+						return item ;
+					});
+
+					this.shopENUM = this.shopENUM.map( item => {
+						item.check = false ;
+						return item ;
+					});
+
 					this.form.patchValue({ password: '123123'})
 				}
 			});

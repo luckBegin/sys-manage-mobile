@@ -1,6 +1,6 @@
 <div class="c-full-container">
-	<Navbar [icon]="icon" [rightContent]="rightContent">
-		ri
+	<Navbar [icon]="icon">
+		角色列表
 	</Navbar>
 	<div class = 'detail-container c-flex-row-start' *ngIf="!emptyData">
 		<div class="left c-text-overflow">
@@ -52,8 +52,4 @@
 
 <ng-template #icon>
 	<Icon [type]="'left'"></Icon>
-</ng-template>
-
-<ng-template #rightContent>
-	<common-shop-select></common-shop-select>
 </ng-template>

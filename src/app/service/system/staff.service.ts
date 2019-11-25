@@ -51,4 +51,7 @@ export class StaffService {
 			}
 		}
 	}
+
+	@PUT(API.staff.list + '/changePass')
+	changePass( data?: any): any | Observable< RESPONSE > {} ;
 }

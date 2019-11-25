@@ -8,7 +8,6 @@ const wx = {
 
 const staff = {
 	list: HOST + '/system/staff',
-	changePass: HOST + '/system/staff/changePass',
 	bindWx:HOST + '/system/staff/bindWx'
 };
 

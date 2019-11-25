@@ -1,0 +1,57 @@
+<div class="c-full-container">
+	<Navbar [icon]="icon" (onLeftClick)="back()">
+		修改密码
+	</Navbar>
+
+	<div class='form-wrapper'>
+		<form [formGroup]="form" class = 'c-form'>
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					旧密码
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入旧密码"
+							type="password"
+							formControlName="oldPwd"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					新密码
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入新密码"
+							type="password"
+							formControlName="newPwd"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div class="c-form-section">
+				<div class="c-form-title c-form-title-require">
+					再次输入新密码
+				</div>
+				<div class = 'c-form-container c-flex-row-start c-flex-auto-wrap'>
+					<input
+							placeholder="请输入新密码"
+							type="password"
+							formControlName="newPwd2"
+							class = 'c-form-input'
+					>
+				</div>
+			</div>
+
+			<div Button type="primary" class="c-button" (click)="change()">确定修改</div>
+		</form>
+	</div>
+</div>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>
