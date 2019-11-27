@@ -25,6 +25,10 @@ export class RoomService {
 	@GET(API.room.type)
 	typeGet( data?: any ): any | Observable< RESPONSE > {} ;
 
+
+	@GET(API.room.list + '/all')
+	listAll(para?: any): any | Observable< RESPONSE > {} ;
+
 	static BookStatsEnums: ENUM[] = [
 		{ key: '提交' , value: 0} ,
 		{ key: '取消', value: 1} ,

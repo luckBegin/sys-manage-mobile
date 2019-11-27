@@ -13,7 +13,8 @@ const staff = {
 
 const room = {
 	book: HOST + '/room/book',
-	type: HOST + '/room/type'
+	type: HOST + '/room/type',
+	list: HOST + '/room/list'
 };
 
 const system = {

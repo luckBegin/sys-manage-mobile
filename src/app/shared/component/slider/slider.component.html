@@ -1,0 +1,16 @@
+<div class = 'c-full-container slider-wrapper'
+     [ngClass]="{'active': show === true , 'not-active': show === false}"
+     [style.zIndex] = 'zIndex'
+>
+	<Navbar [icon]="icon"  (onLeftClick)="hide()">
+		{{ title }}
+	</Navbar>
+
+	<div class="content">
+		<ng-content></ng-content>
+	</div>
+</div>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>

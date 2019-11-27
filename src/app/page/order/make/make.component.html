@@ -1,0 +1,47 @@
+<div class = 'c-slide-container'>
+
+	<Navbar [icon]="icon"  (onLeftClick)="back()">
+		桌台点单
+	</Navbar>
+
+	<List [className]="'my-list'">
+		<ListItem extra="点击查看" platform="android" [arrow]="'horizontal'">我的业绩</ListItem>
+		<ListItem extra="点击查看" platform="android" [arrow]="'horizontal'"
+		          (click)="toOrder()"
+		>
+			桌台点单
+		</ListItem>
+		<ListItem
+				[align]="'top'"
+				[thumb]="'https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png'"
+				multipleLine
+				[platform]="'android'"
+		>
+			我的下单
+			<Brief>
+				<div class = 'c-flex-row-start'>
+					<div class = 'order-tag'>
+						<span>未结算:</span>
+						<Badge [text]="'促'"></Badge>
+					</div>
+					<div class = 'order-tag'>
+						<span>未落单:</span>
+						<Badge [text]="'促'"></Badge>
+					</div>
+					<div class = 'order-tag'>
+						<span>未交款:</span>
+						<Badge [text]="'促'"></Badge>
+					</div>
+				</div>
+			</Brief>
+		</ListItem>
+	</List>
+
+	<common-slider [(show)]="orderShow" [zIndex]="999" title="点单">
+
+	</common-slider>
+</div>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>
