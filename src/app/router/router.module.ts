@@ -17,8 +17,11 @@ const routes: Routes = [
 		path: 'system' ,
 		loadChildren : '../page/system/system.module#SystemModule',
 		canActivate: [ LoginGuard, PermissionGuard]
-	},
-	{
+	},	{
+		path: 'order' ,
+		loadChildren : '../page/order/order.module#OrderModule',
+		canActivate: [ LoginGuard, PermissionGuard]
+	}, {
 		path: 'menu' , component: MenuComponent , data: { title: '系统菜单'} ,
 		canActivate: [ LoginGuard ]
 	},

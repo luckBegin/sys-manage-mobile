@@ -13,6 +13,7 @@ import {ErrorComponent} from "../default/error/error.component";
 import {MenuComponent} from "../page/menu/menu.component";
 import {CommonShopSelectComponent} from "./component/shop-select/shop-select.component";
 import {CommonEmptyComponent} from "./component/empty-data/empty.component";
+import {SliderComponent} from "./component/slider/slider.component";
 
 const modules = [CommonModule, FormsModule, NgZorroAntdMobileModule];
 
@@ -21,7 +22,8 @@ const components = [
 	ErrorComponent,
 	MenuComponent,
 	CommonShopSelectComponent,
-	CommonEmptyComponent
+	CommonEmptyComponent,
+	SliderComponent
 ];
 const pipes = [TimePipe, CusCurrencyPipe, DatePipe, FilterSymbolPipe, DiscountPipe , NullPipe ];
 
