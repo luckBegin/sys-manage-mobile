@@ -23,4 +23,9 @@ const system = {
 	depart: HOST + '/system/department'
 };
 
-export const API = { wx , staff , room , system };
+const goods = {
+	classify: HOST + '/goods/classify' ,
+	subClassify: HOST + '/goods/subClassify',
+	childClassify: HOST + '/goods/childClassify',
+}
+export const API = { wx , staff , room , system, goods };

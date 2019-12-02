@@ -1,0 +1,57 @@
+<div class = 'c-slide-container'>
+
+	<Navbar [icon]="icon"  (onLeftClick)="back()">
+		桌台点单
+	</Navbar>
+
+	<div class = 'good-container'>
+		<div class="left">
+			<div class = 'left-item'
+			     [ngClass]="{'role-item-active': selectSubClassify === null}"
+			     (click)='subSelect(null)'
+			>全部</div>
+			<div class = 'left-item'
+			     *ngFor="let item of subClassifyList"
+			     [ngClass]="{'role-item-active': selectSubClassify === item.id }"
+			     (click)="subSelect(item.id)"
+			>
+				{{ item.name }}
+			</div>
+		</div>
+		<div class="right" [ngClass]="{ hide: loading === true }">
+			<PullToRefresh
+					[ngStyle]="{height: (this.height - 45) + 'px'}"
+					[direction]="'up'"
+					(onRefresh)="refresh($event)"
+					[(ngModel)]="refreshState"
+					[endReachedRefresh] = 'false'
+					[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '' }"
+			>
+				<div style="margin-bottom: 20px;">
+					<div *ngIf="childClassifyList.length > 0">
+						<div class="goods-item right-item c-flex-row-allStart" *ngFor="let item of childClassifyList" (click)="itemPick(item)">
+							<img src="/assets/img/no-image.jpeg" alt="" class = 'item-cover'>
+							<div class="goods-content">
+								<div class="goods-title">
+									{{ item.name }}
+								</div>
+								<div class="goods-price">
+									{{ item.price | cusCurrency}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<common-empty-data *ngIf= 'childClassifyList.length <= 0 '></common-empty-data>
+			</PullToRefresh>
+		</div>
+	</div>
+
+	<common-slider [(show)]="uploadShow" [zIndex]="999" title="图片上传">
+		<input type="file" (change)="imgUpload($event)">
+	</common-slider>
+</div>
+
+<ng-template #icon>
+	<Icon [type]="'left'"></Icon>
+</ng-template>

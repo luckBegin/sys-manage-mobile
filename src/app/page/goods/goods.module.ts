@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core' ;
 import { RouterModule, Router, Routes } from '@angular/router' ;
 import {SharedModule} from '../../shared/shared.module' ;
-import {OrderMakeComponent} from "./make/make.component";
-import {OrderedComponent} from './ordered/ordered.component';
+import {GoodsImageComponent} from './image/image.component';
 const routes: Routes = [
-	{ path: 'make', component: OrderMakeComponent , data: {title: '点单'}} ,
-	{ path: 'ordered', component: OrderedComponent , data: {title: '下单'}} ,
+	{ path: 'image', component: GoodsImageComponent , data: {title: '图片上传'}} ,
 ];
 
 const component = [
-	OrderMakeComponent,
-	OrderedComponent
+	GoodsImageComponent
 ];
 @NgModule({
 	declarations: [
@@ -23,5 +20,5 @@ const component = [
 	providers: [],
 	bootstrap: [],
 })
-export class OrderModule {
+export class GoodsModule {
 }

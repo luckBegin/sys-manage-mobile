@@ -21,6 +21,10 @@ const routes: Routes = [
 		path: 'order' ,
 		loadChildren : '../page/order/order.module#OrderModule',
 		canActivate: [ LoginGuard, PermissionGuard]
+	},{
+		path: 'goods' ,
+		loadChildren : '../page/goods/goods.module#GoodsModule',
+		canActivate: [ LoginGuard, PermissionGuard]
 	}, {
 		path: 'menu' , component: MenuComponent , data: { title: '系统菜单'} ,
 		canActivate: [ LoginGuard ]

@@ -38,7 +38,80 @@
 	</List>
 
 	<common-slider [(show)]="orderShow" [zIndex]="999" title="点单">
+		<div style="padding-top: 10px">
+			<div *ngFor="let item of roomList.type" class = 'room-section'>
+				<div class = 'room-title'>{{item.name}}</div>
+				<div class="room-wrapper">
+					<div class="room-item" *ngFor="let subItem of item.data" (click)="selected(subItem)">
+						<div class="room-item-title">
+							{{ subItem.name }}
+						</div>
+						<div class = 'status_4 room-content'>
+							<div>消费金额: {{ subItem.orderInfo.realMoney | cusCurrency }}</div>
+							<div>备注: {{ subItem.remark | nullPipe }}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</common-slider>
 
+	<common-slider [(show)]="orderItemShow" [zIndex]="1000" [title]="'选择项目 - ' + selectRoom.name">
+		<div class="good-container">
+			<div class="left">
+				<div class = 'left-item'
+				     [ngClass]="{'role-item-active': selectSubClassify === null}"
+				     (click)='subSelect(null)'
+				>全部</div>
+				<div class = 'left-item'
+				     *ngFor="let item of subClassifyList"
+				     [ngClass]="{'role-item-active': selectSubClassify === item.id }"
+				     (click)="subSelect(item.id)"
+				>
+					{{ item.name }}
+					<Badge class = 'goods-sum' [text]="getClassifySum(item.id)" [hot]="true" style="margin-left:12px;"></Badge>
+				</div>
+			</div>
+			<div class="right" [ngClass]="{ hide: loading === true }">
+				<PullToRefresh
+						[ngStyle]="{height: (this.height - 45) + 'px'}"
+						[direction]="'up'"
+						(onRefresh)="refresh($event)"
+						[(ngModel)]="refreshState"
+						[endReachedRefresh] = 'false'
+						[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '' }"
+				>
+					<div style="margin-bottom: 20px;">
+						<div *ngIf="childClassifyList.length > 0">
+							<div class="goods-item right-item c-flex-row-allStart" *ngFor="let item of childClassifyList ">
+								<img src="/assets/img/no-image.jpeg" alt="" class = 'item-cover'>
+								<div class="goods-content">
+									<div class="goods-title">
+										{{ item.name }}
+									</div>
+									<div class="goods-price">
+										{{ item.price | cusCurrency}}
+									</div>
+									<div class = 'c-flex-row-start goods-count'>
+										<div class="goods-count-title">数量:</div>
+										<div style="flex:1" class = 'c-flex-row-start'>
+											<Stepper [value]="getSelectNum(item.subClassifyId , item.id)"
+											         [min]="0"  [showNumber]="true"
+											         (onChange)="goodsSelect($event,item)"
+											>
+											</Stepper>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<common-empty-data *ngIf= 'childClassifyList.length <= 0 '></common-empty-data>
+				</PullToRefresh>
+			</div>
+
+			<div class="next" (click)="next()">下单</div>
+		</div>
 	</common-slider>
 </div>
 
