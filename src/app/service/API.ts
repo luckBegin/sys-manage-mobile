@@ -14,7 +14,8 @@ const staff = {
 const room = {
 	book: HOST + '/room/book',
 	type: HOST + '/room/type',
-	list: HOST + '/room/list'
+	list: HOST + '/room/list' ,
+	order: HOST + '/room/order'
 };
 
 const system = {
@@ -28,4 +29,5 @@ const goods = {
 	subClassify: HOST + '/goods/subClassify',
 	childClassify: HOST + '/goods/childClassify',
 }
+
 export const API = { wx , staff , room , system, goods };

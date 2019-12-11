@@ -7,6 +7,7 @@ import {GoodsService} from '../../../service/goods/goods.service';
 import { ChildClassifyQuery} from './query.module';
 import {MsgService} from '../../../service/msg/msg.service';
 import {SessionStorageService} from '../../../service/storage';
+import {OrderRoomService} from '../../../service/order/order.service';
 
 @Component({
 	selector: 'order-make',
@@ -20,7 +21,9 @@ export class OrderMakeComponent implements OnInit{
 		private readonly roomSer: RoomService,
 		private readonly goodsSer: GoodsService,
 		private readonly msg: MsgService ,
-		private readonly sgo: SessionStorageService
+		private readonly sgo: SessionStorageService,
+		//TODO delete this service
+		private readonly orderSer: OrderRoomService
 	){}
 
 	ngOnInit(): void {
@@ -192,7 +195,7 @@ export class OrderMakeComponent implements OnInit{
 						data.money += Math.ceil(subItem.price * item[subKey].count ) ;
 
 					data.data.push({
-						count:3 ,
+						count: item[subKey].count,
 						item: subItem
 					})
 				})
@@ -204,6 +207,10 @@ export class OrderMakeComponent implements OnInit{
 			return;
 		}
 		this.sgo.set('orderInfo' , data );
-		this.router.navigate(['/order/ordered'])
+		this.orderSer.create(data)
+			.subscribe( res => {
+				console.log( res ) ;
+			})
+		// this.router.navigate(['/order/ordered'])
 	}
 }
