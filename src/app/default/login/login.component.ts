@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit{
 			this.code = para.code ;
 			this.redirect = para.state ;
 		});
+		// TODO delete this line
 		this.sgo.set('uid' , 1) ;
 		const uid = this.sgo.get('uid') ;
 		if( uid ) {
