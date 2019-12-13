@@ -119,7 +119,7 @@ export class PromotionBookComponent implements OnInit{
 		this.bookListShow = true ;
 		this.bookDataLoading = true ;
 		this.bookListQueryModel = new BookListQueryModel ;
-		this.getList() ;
+		this.getList(true) ;
 	}
 
 	public hideList(): void{

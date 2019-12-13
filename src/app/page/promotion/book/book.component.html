@@ -78,7 +78,6 @@
 						[clear]="true"
 						[placeholder]="'请输入预订人手机号'"
 						[content]="'手机'"
-						[type]="'phone'"
 						formControlName="tel"
 						class='c-required'
 				></InputItem>
@@ -143,7 +142,7 @@
 							</div>
 							<div class="item-bottom-content">
 								到店时间:
-								<span class='content'>{{item.reserveDate | datePie: 'y-m-d h:i' }}</span>
+								<span class='content'>{{item.reserveDate | datePie: 'h:i' }}</span>
 							</div>
 							<div class="item-bottom-content">
 								人数:
@@ -151,7 +150,7 @@
 							</div>
 							<div class="item-bottom-content">
 								登记时间:
-								<span class='content'>{{item.createTime | datePie: 'y-m-d h:i' }}</span>
+								<span class='content'>{{item.createTime | datePie: 'h:i' }}</span>
 							</div>
 							<div>
 								备注:
