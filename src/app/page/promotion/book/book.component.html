@@ -7,9 +7,10 @@
 			[open]="bookListShow"
 			[sidebar]="sidebar"
 	>
-		<Navbar [rightContent]="rightContent">
+		<Navbar>
 			book
 		</Navbar>
+
 		<div class="list">
 			<List [className]="'my-list'">
 				<ListItem multipleLine [arrow]="'horizontal'" (onClick)="showList()">
@@ -86,7 +87,6 @@
 						[clear]="true"
 						[placeholder]="'请输入预订人数'"
 						[content]="'人数'"
-						[type]="'money'"
 						formControlName="num"
 				></InputItem>
 
@@ -171,9 +171,16 @@
 							<div
 								Button class="button_cancel"
 								(click)="cancelItem(item)"
-								*ngIf="item.status === 0 || item.status === 2"
+								*ngIf="item.status === 0"
 							>
 								取消
+							</div>
+							<div
+								Button class="button_cancel"
+								(click)="cancelBook(item)"
+								*ngIf="item.status === 2"
+							>
+								取消安排
 							</div>
 						</div>
 					</Badge>
@@ -185,9 +192,4 @@
 
 <ng-template #icon>
 	<Icon [type]="'left'"></Icon>
-</ng-template>
-
-
-<ng-template #rightContent>
-	<common-shop-select></common-shop-select>
 </ng-template>

@@ -1,39 +1,42 @@
 import { Injectable } from '@angular/core' ;
-import {API} from "../API";
-import {GET, POST, PUT} from "../../decorators";
-import {Observable} from "rxjs";
-import {ENUM, RESPONSE} from "../../models";
-import {HttpClient} from "@angular/common/http";
-import {MsgService} from "../msg/msg.service";
+import {API} from '../API';
+import {GET, POST, PUT} from '../../decorators';
+import {Observable} from 'rxjs';
+import {ENUM, RESPONSE} from '../../models';
+import {HttpClient} from '@angular/common/http';
+import {MsgService} from '../msg/msg.service';
 
-@Injectable({providedIn: "root"})
+@Injectable({providedIn: 'root'})
 export class RoomService {
 	constructor(
 		private readonly http: HttpClient ,
-		private readonly msg: MsgService
-	){};
+		private readonly msg: MsgService,
+	){}
 
 	@POST(API.room.book)
-	bookPost( data?: any ): any | Observable< RESPONSE > {} ;
+	bookPost( data?: any ): any | Observable< RESPONSE > {}
 
 	@PUT(API.room.book)
-	bookPut( data?: any ): any | Observable< RESPONSE > {} ;
+	bookPut( data?: any ): any | Observable< RESPONSE > {}
 
-	@GET(API.room.book +'/staff')
-	getStaffBookList( query?: any ): any | Observable< RESPONSE > {} ;
+	@GET(API.room.book + '/staff')
+	getStaffBookList( query?: any ): any | Observable< RESPONSE > {}
 
 	@GET(API.room.type)
-	typeGet( data?: any ): any | Observable< RESPONSE > {} ;
+	typeGet( data?: any ): any | Observable< RESPONSE > {}
 
 	@GET(API.room.list + '/all')
-	listAll(para?: any): any | Observable< RESPONSE > {} ;
+	listAll(para?: any): any | Observable< RESPONSE > {}
 
 	@GET(API.room.list + '/consume')
-	consume(para?: any): any | Observable< RESPONSE > {} ;
+	consume(para?: any): any | Observable< RESPONSE > {}
+
+	@POST(API.room.list + '/cancelBook')
+	public cancelBook( para?: any): any | Observable< RESPONSE > {}
 
 	static BookStatsEnums: ENUM[] = [
 		{ key: '提交' , value: 0} ,
 		{ key: '取消', value: 1} ,
 		{ key: '安排' , value: 2} ,
-	]
+	];
 }
