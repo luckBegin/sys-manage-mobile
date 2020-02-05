@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core" ;
-import {SessionStorageService} from "../../service/storage";
-import {ActivatedRoute, Router} from "@angular/router";
-import {WxService} from "../../service/wx/wx.service";
-import {RESPONSE} from "../../models";
-import {StaffService} from "../../service/system";
+import {Component, OnInit} from '@angular/core' ;
+import {SessionStorageService} from '../../service/storage';
+import {ActivatedRoute, Router} from '@angular/router';
+import {WxService} from '../../service/wx/wx.service';
+import {RESPONSE} from '../../models';
+import {StaffService} from '../../service/system';
 
 @Component({
 	selector: 'login' ,
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit{
 		private readonly activeRoute: ActivatedRoute ,
 		private readonly service: WxService,
 		private readonly staffSer: StaffService,
-		private readonly router: Router
+		private readonly router: Router,
 	){}
 
 	private code: string ;
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
 		// TODO delete this line
 		this.sgo.set('uid' , 1) ;
 		const uid = this.sgo.get('uid') ;
-		if( uid ) {
+		if ( uid ) {
 			this.getUsrInfo(uid);
 		} else {
 			this.getConfig() ;
@@ -42,24 +42,24 @@ export class LoginComponent implements OnInit{
 				this.sgo.set('oid' , res.data.oid );
 				this.sgo.set('uid' , res.data.uid);
 				this.getUsrInfo(res.data.uid);
- 			})
+ 			});
 	}
 
 	private getUsrInfo(uid: number): void{
-		if( this.sgo.get('staffInfo')) {
+		if ( this.sgo.get('staffInfo')) {
 			this.setRedirect();
 		} else {
 			this.staffSer.staff({uid})
-				.subscribe((res:RESPONSE) => {
-					this.sgo.set('staffInfo',res.data) ;
-					this.sgo.set('selectShopId', res.data.shopInfo[0].id );
+				.subscribe((res: RESPONSE) => {
+					this.sgo.set('staffInfo', res.data) ;
+					// this.sgo.set('selectShopId', res.data.shopInfo[0].id );
 					this.setRedirect();
-				})
+				});
 		}
 	}
 
 	private setRedirect(): void {
-		if( this.redirect )
-			this.router.navigate([this.redirect])
+		if ( this.redirect )
+			this.router.navigate([this.redirect]);
 	}
 }

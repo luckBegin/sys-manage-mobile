@@ -15,7 +15,7 @@ export class HttpIntercept implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): any {
 		const headers = {};
-		const obj = {
+		const obj: any = {
 			// 'withCredentials': true ,
 			setParams: {},
 		};
@@ -31,21 +31,21 @@ export class HttpIntercept implements HttpInterceptor {
 			headers['jwt-user-id'] = loginInfo.userInfo.id.toString() ;
 		}
 
-		const shopId = this.sgo.get('selectShopId');
-		if ( shopId ) {
-			headers['jwt-shop'] = shopId.toString();
+		// const shopId = this.sgo.get('selectShopId');
+		// if ( shopId ) {
+		// 	headers['jwt-shop'] = shopId.toString();
+		//
+		// 	if ( req.method === 'GET' ) {
+		// 		obj.setParams.shopId = shopId;
+		// 	}
+		//
+		// 	if ( req.method === 'POST' ) {
+		// 		if (!req.body.shopId)
+		// 			req.body.shopId = shopId;
+		// 	}
+		// }
 
-			if ( req.method === 'GET' ) {
-				obj.setParams['shopId'] = shopId;
-			}
-
-			if ( req.method === 'POST' ) {
-				if(!req.body['shopId'])
-					req.body['shopId'] = shopId;
-			}
-		}
-
-		obj['headers'] = new HttpHeaders(headers);
+		obj.headers = new HttpHeaders(headers);
 
 		req = req.clone(obj);
 

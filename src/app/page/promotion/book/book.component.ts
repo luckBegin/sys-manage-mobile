@@ -31,8 +31,7 @@ export class PromotionBookComponent implements OnInit {
 	public selectShop = '请选择' ;
 	public selectArea = '请选择' ;
 	public currentTime: Date = null ;
-	public minTime: Date = new Date() ;
-
+	public reserveDate: Date = null ;
 	public height: number = document.documentElement.clientHeight;
 	public bookListShow = false ;
 	public bookDataLoading = false ;
@@ -80,9 +79,10 @@ export class PromotionBookComponent implements OnInit {
 	}
 
 	public timeChange($event: Date): void {
-		this.currentTime = $event ;
+		const date = DateUtils.timeFix( $event ) ;
+		this.currentTime = date ;
 		this.form.patchValue({
-			reserveDate: DateUtils.format($event.getTime(), 'y-m-d h:i'),
+			reserveDate: DateUtils.format(date.getTime(), 'y-m-d h:i'),
 		});
 	}
 
@@ -118,7 +118,7 @@ export class PromotionBookComponent implements OnInit {
 	public showList(): void {
 		this.bookListShow = true ;
 		this.bookDataLoading = true ;
-		this.bookListQueryModel = new BookListQueryModel ;
+		this.bookListQueryModel = new BookListQueryModel() ;
 		this.getList(true) ;
 	}
 
@@ -220,7 +220,7 @@ export class PromotionBookComponent implements OnInit {
 				item.reserveDate = DateUtils.format( item.reserveDate ) ;
 				this.form.patchValue(item) ;
 				this.bookListShow = false ;
-				this.bookListQueryModel = new BookListQueryModel ;
+				this.bookListQueryModel = new BookListQueryModel() ;
 				this.bookList = [] ;
 				this.selectShop = (this.shopENUM.find(subItem => subItem.value === item.shopId)).label as string ;
 				this.selectArea = (this.typeENUM.find(subItem => subItem.value === item.typeId)).label as string ;
