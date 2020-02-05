@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core' ;
 import { RouterModule, Router, Routes } from '@angular/router' ;
 import {SharedModule} from '../../shared/shared.module' ;
-import {MsgComponent} from "./msg/msg.component";
-import {BindWxComponent} from "./bindWx/bindWx.component";
-import {SystemRoleComponent} from "./role/role.component";
-import {BindRoleComponent} from "./bindRole/bindRole.component";
-import {SystemStaffComponent} from "./staff/staff.component";
-import {SystemChangePassComponent} from "./changePass/change-pass.component";
+import {MsgComponent} from './msg/msg.component';
+import {BindWxComponent} from './bindWx/bindWx.component';
+import {SystemRoleComponent} from './role/role.component';
+import {BindRoleComponent} from './bindRole/bindRole.component';
+import {SystemStaffComponent} from './staff/staff.component';
+import {SystemChangePassComponent} from './changePass/change-pass.component';
 const routes: Routes = [
 	{ path: 'msg', component: MsgComponent , data: {title: '微信消息'}} ,
 	{ path: 'bindWx' , component: BindWxComponent , data: {title: '绑定微信'}},
@@ -21,7 +21,7 @@ const component = [
 	SystemRoleComponent,
 	BindRoleComponent,
 	SystemStaffComponent,
-	SystemChangePassComponent
+	SystemChangePassComponent,
 ];
 @NgModule({
 	declarations: [

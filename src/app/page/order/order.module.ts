@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core' ;
 import { RouterModule, Routes } from '@angular/router' ;
 import {SharedModule} from '../../shared/shared.module' ;
-import {OrderMakeComponent} from "./make/make.component";
+import {OrderMakeComponent} from './make/make.component';
 import {OrderedComponent} from './ordered/ordered.component';
 const routes: Routes = [
 	{ path: 'make', component: OrderMakeComponent , data: {title: '点单'}} ,
@@ -10,7 +10,7 @@ const routes: Routes = [
 
 const component = [
 	OrderMakeComponent,
-	OrderedComponent
+	OrderedComponent,
 ];
 @NgModule({
 	declarations: [

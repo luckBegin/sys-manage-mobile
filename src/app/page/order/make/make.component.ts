@@ -12,7 +12,7 @@ import {OrderRoomService} from '../../../service/order/order.service';
 @Component({
 	selector: 'order-make',
 	templateUrl: './make.component.html' ,
-	styleUrls: ['./make.component.less']
+	styleUrls: ['./make.component.less'],
 })
 export class OrderMakeComponent implements OnInit{
 	constructor(
@@ -22,8 +22,8 @@ export class OrderMakeComponent implements OnInit{
 		private readonly goodsSer: GoodsService,
 		private readonly msg: MsgService ,
 		private readonly sgo: SessionStorageService,
-		//TODO delete this service
-		private readonly orderSer: OrderRoomService
+		// TODO delete this service
+		private readonly orderSer: OrderRoomService,
 	){}
 
 	ngOnInit(): void {
@@ -31,7 +31,7 @@ export class OrderMakeComponent implements OnInit{
 
 	public orderShow: boolean = false ;
 
-	public orderItemShow:boolean = false ;
+	public orderItemShow: boolean = false ;
 
 	public roomList: any = { type: [] , area: [] } ;
 
@@ -53,46 +53,50 @@ export class OrderMakeComponent implements OnInit{
     private getRoomList(): void {
     	this.roomSer.consume()
 		    .subscribe( (res: RESPONSE) => {
-		    	const typeMap = {} ;
-		    	const areaMap = {} ;
-		    	res.data.forEach( item => {
-		    		const typeId = item.typeInfo.id
-		    		const areaId = item.areaInfo.id ;
+				const typeMap = {} ;
+				const areaMap = {} ;
 
-		    		if( typeMap.hasOwnProperty(typeId)){
-		    			typeMap[typeId].data.push( item );
-				    } else {
-		    			typeMap[typeId] = {
-		    				name: item.typeInfo.name ,
-						    data: [ item ]
-					    }
-				    }
+				if ( res.data.length <= 0 )
+					this.msg.warn('暂未有房台处于消费状态,请先开台') ;
 
-                    if( areaMap.hasOwnProperty(areaId)){
-                        areaMap[areaId].data.push( item );
-                    } else {
-                        areaMap[areaId] = {
-                            name: item.areaInfo.name ,
-                            data: [ item ]
-                        }
-                    }
-			    });
-		    	const area = [] ;
-		    	const type = [] ;
+				res.data.forEach( item => {
+					const typeId = item.typeInfo.id;
+					const areaId = item.areaInfo.id ;
 
-		    	Object.keys(areaMap).forEach(key => {
-		    		area.push(areaMap[key])
-			    })
+					if ( typeMap.hasOwnProperty(typeId)){
+						typeMap[typeId].data.push( item );
+					} else {
+						typeMap[typeId] = {
+							name: item.typeInfo.name ,
+							data: [ item ],
+						};
+					}
 
-                Object.keys(typeMap).forEach(key => {
-                    type.push(typeMap[key])
-                })
+					if ( areaMap.hasOwnProperty(areaId)){
+						areaMap[areaId].data.push( item );
+					} else {
+						areaMap[areaId] = {
+							name: item.areaInfo.name ,
+							data: [ item ],
+						};
+					}
+				});
+				const area = [] ;
+				const type = [] ;
 
-			    this.roomList = { type , area };
-		    })
+				Object.keys(areaMap).forEach(key => {
+					area.push(areaMap[key]);
+				});
+
+				Object.keys(typeMap).forEach(key => {
+					type.push(typeMap[key]);
+				});
+
+				this.roomList = { type , area };
+		    });
     }
 
-    public selected(item:any): void{
+    public selected(item: any): void{
     	this.selectRoom = item ;
     	this.orderItemShow = true ;
     	this.getSubClassify() ;
@@ -104,7 +108,7 @@ export class OrderMakeComponent implements OnInit{
     	this.goodsSer.subClassify()
 		    .subscribe( (res: RESPONSE) => {
 		    	this.subClassifyList = res.data ;
-		    })
+		    });
     }
 
     public selectSubClassify: number = null ;
@@ -128,19 +132,19 @@ export class OrderMakeComponent implements OnInit{
 				    this.childClassifyList = this.childClassifyList.concat( res.data ) ;
 				    if (res.page && res.page.totalNumber <= this.childClassifyList.length) {
 					    this.dataComplete = true;
-					    this.refreshState.currentState = 'noMore'
+					    this.refreshState.currentState = 'noMore';
 				    } else {
 					    this.refreshState.currentState = 'finish';
 				    }
 				    this.totalNumber = res.page ? res.page.totalNumber : 0;
 				    this.loading = false;
-			    }, 200)
-		    })
+			    }, 200);
+		    });
     }
 
     public subSelect(type: number): void {
     	this.selectSubClassify = type ;
-    	this.childClassifyQuery = new ChildClassifyQuery()
+    	this.childClassifyQuery = new ChildClassifyQuery();
 	    this.childClassifyQuery.subClassifyId = type ;
     	this.getChildClassify(true);
     }
@@ -150,8 +154,8 @@ export class OrderMakeComponent implements OnInit{
     private dataComplete: boolean = false ;
 
 	public refresh($event: any): void{
-		if( this.dataComplete ) {
-			return
+		if ( this.dataComplete ) {
+			return;
 		} else {
 			this.childClassifyQuery.currentPage += 1;
 			this.refreshState.currentState = 'release';
@@ -159,22 +163,22 @@ export class OrderMakeComponent implements OnInit{
 		}
 	}
 
-	public goodsSelect($event: any , item:any): void {
-		if( !this.selectedGoods.hasOwnProperty(item.subClassifyId) ) {
-			this.selectedGoods[item.subClassifyId] = { [item.id] : { count: $event , item: item} } ;
+	public goodsSelect($event: any , item: any): void {
+		if ( !this.selectedGoods.hasOwnProperty(item.subClassifyId) ) {
+			this.selectedGoods[item.subClassifyId] = { [item.id] : { count: $event , item} } ;
 		} else {
-			this.selectedGoods[item.subClassifyId][item.id] = { count: $event , item: item} ;
+			this.selectedGoods[item.subClassifyId][item.id] = { count: $event , item} ;
 		}
 	}
 
-	public getSelectNum(parentId : number , id: number):number{
+	public getSelectNum(parentId: number , id: number): number{
 		return this.selectedGoods[parentId] ?
-			this.selectedGoods[parentId][id] ? this.selectedGoods[parentId][id].count: 0
-			:0 ;
+			this.selectedGoods[parentId][id] ? this.selectedGoods[parentId][id].count : 0
+			: 0 ;
 	}
 
 	public getClassifySum(id): number{
-		if( !this.selectedGoods.hasOwnProperty(id) ) return 0;
+		if ( !this.selectedGoods.hasOwnProperty(id) ) return 0;
 		const item = this.selectedGoods[id] ;
 		let count = 0 ;
 		Object.keys(item).forEach( key => {
@@ -188,21 +192,21 @@ export class OrderMakeComponent implements OnInit{
 
 		Object.keys(this.selectedGoods).forEach( parentKey => {
 			const item = this.selectedGoods[parentKey] ;
-			if( item ) {
+			if ( item ) {
 				Object.keys(item).forEach(subKey => {
 					const subItem = item[subKey].item ;
-					if( item[subKey].count > 0 )
+					if ( item[subKey].count > 0 )
 						data.money += Math.ceil(subItem.price * item[subKey].count ) ;
 
 					data.data.push({
 						count: item[subKey].count,
-						item: subItem
-					})
-				})
+						item: subItem,
+					});
+				});
 			}
-		})
+		});
 
-		if( data.data.length === 0 ) {
+		if ( data.data.length === 0 ) {
 			this.msg.warn('请选择商品在进行下单');
 			return;
 		}
@@ -210,7 +214,7 @@ export class OrderMakeComponent implements OnInit{
 		this.orderSer.create(data)
 			.subscribe( res => {
 				console.log( res ) ;
-			})
+			});
 		// this.router.navigate(['/order/ordered'])
 	}
 }
