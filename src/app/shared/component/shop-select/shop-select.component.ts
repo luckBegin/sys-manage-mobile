@@ -1,13 +1,13 @@
-import {Component, OnInit} from "@angular/core";
-import {SysShopService} from "../../../service/system";
-import {SessionStorageService} from "../../../service/storage";
-import {ENUM} from "../../../models";
-import {AdaptorUtils} from "../../utils";
+import {Component, OnInit} from '@angular/core';
+import {SysShopService} from '../../../service/system';
+import {SessionStorageService} from '../../../service/storage';
+import {ENUM} from '../../../models';
+import {AdaptorUtils} from '../../utils';
 
 @Component({
 	selector: 'common-shop-select' ,
 	templateUrl: './shop-select.component.html' ,
-	styleUrls: ['./shop-select.component.less']
+	styleUrls: ['./shop-select.component.less'],
 })
 export class CommonShopSelectComponent implements OnInit{
 	constructor(
@@ -21,11 +21,15 @@ export class CommonShopSelectComponent implements OnInit{
 	ngOnInit(): void {
 		this.shops = AdaptorUtils.reflect(this.sgo.get('staffInfo').shopInfo , {
 			name: 'label',
-			id: 'value'
+			id: 'value',
 		});
-		this.shop = [
-			this.shops.filter(item => item.value === this.sgo.get('selectShopId'))[0]
-		]
+		const selectShopId = this.sgo.get('selectShopId');
+		if ( selectShopId ) {
+			this.shop = [ this.shops.filter(item => item.value === selectShopId )[0] ] ;
+		} else {
+			this.sgo.set('selectShopId' , this.shops[0].value ) ;
+			this.shop = [ this.shops[0] ];
+		}
 	}
 
 	public select($event: ENUM[] ): void {

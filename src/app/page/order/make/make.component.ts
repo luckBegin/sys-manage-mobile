@@ -189,7 +189,6 @@ export class OrderMakeComponent implements OnInit{
 
 	public next(): void {
 		const data = { money: 0 , data: [] , room: this.selectRoom } ;
-
 		Object.keys(this.selectedGoods).forEach( parentKey => {
 			const item = this.selectedGoods[parentKey] ;
 			if ( item ) {
@@ -206,7 +205,7 @@ export class OrderMakeComponent implements OnInit{
 			}
 		});
 
-		if ( data.data.length === 0 ) {
+		if ( data.data.length === 0  || data.money === 0 ) {
 			this.msg.warn('请选择商品在进行下单');
 			return;
 		}

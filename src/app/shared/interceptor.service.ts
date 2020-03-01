@@ -31,19 +31,19 @@ export class HttpIntercept implements HttpInterceptor {
 			headers['jwt-user-id'] = loginInfo.userInfo.id.toString() ;
 		}
 
-		// const shopId = this.sgo.get('selectShopId');
-		// if ( shopId ) {
-		// 	headers['jwt-shop'] = shopId.toString();
-		//
-		// 	if ( req.method === 'GET' ) {
-		// 		obj.setParams.shopId = shopId;
-		// 	}
-		//
-		// 	if ( req.method === 'POST' ) {
-		// 		if (!req.body.shopId)
-		// 			req.body.shopId = shopId;
-		// 	}
-		// }
+		const shopId = this.sgo.get('selectShopId');
+		if ( shopId ) {
+			headers['jwt-shop'] = shopId.toString();
+
+			if ( req.method === 'GET' ) {
+				obj.setParams.shopId = shopId;
+			}
+
+			if ( req.method === 'POST' ) {
+				if (!req.body.shopId)
+					req.body.shopId = shopId;
+			}
+		}
 
 		obj.headers = new HttpHeaders(headers);
 

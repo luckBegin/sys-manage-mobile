@@ -10,7 +10,7 @@ import {RESPONSE} from '../../models';
 export class OrderRoomService {
     constructor(
         private readonly http: HttpClient ,
-        private readonly msg: MsgService
+        private readonly msg: MsgService,
     ){}
 
     @POST(API.room.order + '/make')

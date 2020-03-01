@@ -1,6 +1,6 @@
 <div class = 'c-slide-container'>
 
-	<Navbar [icon]="icon"  (onLeftClick)="back()">
+	<Navbar [icon]="icon"  (onLeftClick)="back()"  [rightContent]="rightContent">
 		桌台点单
 	</Navbar>
 
@@ -117,4 +117,8 @@
 
 <ng-template #icon>
 	<Icon [type]="'left'"></Icon>
+</ng-template>
+
+<ng-template #rightContent>
+	<common-shop-select></common-shop-select>
 </ng-template>
