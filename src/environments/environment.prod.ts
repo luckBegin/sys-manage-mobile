@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	HOST: 'http://api.jpgqs.cn'
+	HOST: 'http://api.jpgqs.cn',
 };

@@ -10,12 +10,12 @@ import {RESPONSE} from '../../models';
 export class GoodsService {
     constructor(
         private readonly http: HttpClient ,
-        private readonly msg: MsgService
+        private readonly msg: MsgService,
     ){}
 
     @GET(API.goods.subClassify + '/all')
     subClassify(para?: any): any | Observable< RESPONSE > {}
 
     @GET(API.goods.childClassify)
-    childClassify( para?: any):  any | Observable< RESPONSE > {}
+    childClassify( para?: any): any | Observable< RESPONSE > {}
 }

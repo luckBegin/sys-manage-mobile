@@ -1,41 +1,41 @@
 export class Storage{
-    constructor( storageObj : Object ){
+    constructor( storageObj: any ){
         this.storage = storageObj ;
-    };
+    }
 
-    storage : Object ;
+    storage: any  ;
 
-    private typeCheck : Function = ( type : string , obj : any ) : boolean => {
-        return Object.prototype.toString.call(obj) === '[object '+type+']';
-    };
+    private typeCheck = ( type: string , obj: any ): boolean => {
+        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+    }
 
-    set( key : string , value : Array< any > | Object | number | string | boolean ) : Storage {
-        if( this.typeCheck("String",value) ){
+    set( key: string , value: Array< any > | object | number | string | boolean ): Storage {
+        if ( this.typeCheck('String', value) ){
 			this.storage[key] = value;
 		}else{
 			this.storage[key] = JSON.stringify(value);
-		};
+		}
         return this ;
-    };
+    }
 
-    get( key : string ) : any {
+    get( key: string ): any {
 		const value = this.storage[key];
 		try{
 			return JSON.parse(value);
-		}catch(e){
-			return value
-		};
-    };
+		}catch (e){
+			return value;
+		}
+    }
 
-    clear() : Storage {
-        this.storage['clear']() ;
+    clear(): Storage {
+        this.storage.clear() ;
         return this ;
-    };
+    }
 
-    remove( list : Array< String > ) : Storage {
-		for(var key in list){
-			this.storage['removeItem'](list[key]) ;
-		};
+    remove( list: Array< string > ): Storage {
+		Object.keys( list ).forEach( key => {
+			this.storage.removeItem(list[key]) ;
+		});
 		return this;
-    };
-};
+    }
+}
