@@ -23,14 +23,14 @@ export function GET(url: string, msg: string = '获取数据失败,原因 : '): 
 				)
 				.subscribe(res => {
 					obsr.next(res);
-					obsr.complete()
+					obsr.complete();
 				}, err => {
 					obsr.error({data: err});
 				});
 			});
 		};
 	};
-};
+}
 
 export function POST(url: string, json: boolean = true, msg: string = '提交失败,原因 : '): MethodDecorator {
 	return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -42,9 +42,7 @@ export function POST(url: string, json: boolean = true, msg: string = '提交失
 				headers.append('Content-type', 'application/json');
 			}
 			return new Observable(obsr => {
-				this.http.post(url, data, {
-					headers: headers,
-				})
+				this.http.post(url, data, { headers })
 				.pipe(
 					filter((res: RESPONSE) => {
 						if (res.success === false) {
@@ -56,7 +54,7 @@ export function POST(url: string, json: boolean = true, msg: string = '提交失
 				)
 				.subscribe(res => {
 					obsr.next(res);
-					obsr.complete()
+					obsr.complete();
 				}, err => {
 					obsr.error({data: err});
 				});
@@ -75,9 +73,9 @@ export function PUT(url: string, withId: boolean = false, msg: string = '保存�
 			}
 
 			return new Observable(obsr => {
-				const _url = withId ? url + arg[0]['id'] : url;
+				const _url = withId ? url + arg[0].id : url;
 				this.http.put(_url, arg[0], {
-					headers: headers,
+					headers,
 				})
 				.pipe(
 					filter((res: RESPONSE) => {
@@ -90,14 +88,14 @@ export function PUT(url: string, withId: boolean = false, msg: string = '保存�
 				)
 				.subscribe(res => {
 					obsr.next(res);
-					obsr.complete()
+					obsr.complete();
 				}, err => {
 					obsr.error({data: err});
 				});
 			});
 		};
 	};
-};
+}
 
 export function DELETE(url: string, msg: string = '删除失败,原因 : '): MethodDecorator {
 	return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -117,11 +115,11 @@ export function DELETE(url: string, msg: string = '删除失败,原因 : '): Met
 				)
 				.subscribe(res => {
 					obsr.next(res);
-					obsr.complete()
+					obsr.complete();
 				}, err => {
 					obsr.error({data: err});
 				});
 			});
 		};
 	};
-};
+}

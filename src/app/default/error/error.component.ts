@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core' ;
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
 	selector: 'error-403' ,
@@ -34,12 +34,12 @@ import {ActivatedRoute} from "@angular/router";
             color:rgb(75, 73, 70);
 			font-size:19px;
 		}
-	`]
+	`],
 })
 export class ErrorComponent implements OnInit{
 	constructor(
-		private readonly activeRoute: ActivatedRoute
-	){};
+		private readonly activeRoute: ActivatedRoute,
+	){}
 
 	public errorCode: string ;
 	ngOnInit(): void {

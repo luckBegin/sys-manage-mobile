@@ -7,11 +7,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NgZorroAntdMobileModule} from 'ng-zorro-antd-mobile';
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
 	declarations: [
-		AppComponent
+		AppComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -20,10 +20,10 @@ import {SharedModule} from "./shared/shared.module";
 		FormsModule,
 		HttpClientModule,
 		NgZorroAntdMobileModule,
-		SharedModule
+		SharedModule,
 	],
 	providers: [],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
 export class AppModule {
 }

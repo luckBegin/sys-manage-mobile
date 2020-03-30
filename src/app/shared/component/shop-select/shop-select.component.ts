@@ -15,7 +15,7 @@ export class CommonShopSelectComponent implements OnInit{
 		private readonly sgo: SessionStorageService ,
 	){}
 
-	private shops: ENUM[] ;
+	public shops: ENUM[] ;
 	public shop: ENUM[];
 
 	ngOnInit(): void {

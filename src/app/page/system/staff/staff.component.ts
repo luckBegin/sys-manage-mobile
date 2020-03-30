@@ -1,18 +1,18 @@
-import {Component, OnInit} from "@angular/core";
-import {SessionStorageService} from "../../../service/storage";
-import {StaffService, SystemDepartService} from "../../../service/system";
-import {MsgService} from "../../../service/msg/msg.service";
-import {ActivatedRoute} from "@angular/router";
-import {BasicService} from "../../../service/basic/basic.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ENUM, RESPONSE} from "../../../models";
-import {AdaptorUtils} from "../../../shared/utils";
-import {SysRoleService} from "../../../service/system/role.service";
+import {Component, OnInit} from '@angular/core';
+import {SessionStorageService} from '../../../service/storage';
+import {StaffService, SystemDepartService} from '../../../service/system';
+import {MsgService} from '../../../service/msg/msg.service';
+import {ActivatedRoute} from '@angular/router';
+import {BasicService} from '../../../service/basic/basic.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ENUM, RESPONSE} from '../../../models';
+import {AdaptorUtils} from '../../../shared/utils';
+import {SysRoleService} from '../../../service/system/role.service';
 
 @Component({
 	selector: 'system-staff',
 	templateUrl: './staff.component.html',
-	styleUrls: ['./staff.component.less']
+	styleUrls: ['./staff.component.less'],
 })
 export class SystemStaffComponent implements OnInit{
 
@@ -24,18 +24,18 @@ export class SystemStaffComponent implements OnInit{
 		private readonly basicSer: BasicService,
 		private readonly fb: FormBuilder,
 		private readonly roleSer: SysRoleService ,
-		private readonly departSer: SystemDepartService
-	){};
+		private readonly departSer: SystemDepartService,
+	){}
 
 	ngOnInit(): void {
 		this.activeRoute.queryParams.subscribe( res => {
 			this.oid = res.oid ;
 			this.form.patchValue({
-				openId: res.oid
-			})
+				openId: res.oid,
+			});
 		});
 		const shopInfo = this.sgo.get('staffInfo').shopInfo ;
-		this.shopENUM = AdaptorUtils.reflect(shopInfo ,{id: 'value' , name: 'label'} ) ;
+		this.shopENUM = AdaptorUtils.reflect(shopInfo , {id: 'value' , name: 'label'} ) ;
 		this.getRole();
 		this.getDeparts() ;
 	}
@@ -49,33 +49,33 @@ export class SystemStaffComponent implements OnInit{
 	}
 
 	public form: FormGroup = this.fb.group({
-		'username': [null, [Validators.required]],
-		'name': [null, [Validators.required]],
-		'remark': [ null ],
-		'phoneNumber': [null],
-		'password': ['123123'],
-		'roleIds': [null, [Validators.required]],
-		'shopId' : [null , [Validators.required ]] ,
-		'departIds': [ null , [Validators.required]],
-		'openId': [ null ]
-	})
+		username: [null, [Validators.required]],
+		name: [null, [Validators.required]],
+		remark: [ null ],
+		phoneNumber: [null],
+		password: ['123123'],
+		roleIds: [null, [Validators.required]],
+		shopId : [null , [Validators.required ]] ,
+		departIds: [ null , [Validators.required]],
+		openId: [ null ],
+	});
 
 	private selectedShop: number[] = [] ;
 	private selectedRole: ENUM[] = [] ;
 	private selectDepart: ENUM[] = [] ;
 	public selectChange($event: any , type: string ): void{
 		let data = null ;
-		if( type === 'shop')
+		if ( type === 'shop')
 			data = this.selectedShop ;
 
-		if( type === 'role')
+		if ( type === 'role')
 			data = this.selectedRole ;
 
-		if( type === 'depart')
+		if ( type === 'depart')
 			data = this.selectDepart ;
 
-		const idx = data.indexOf( $event.value )
-		if( idx > -1 ) {
+		const idx = data.indexOf( $event.value );
+		if ( idx > -1 ) {
 			data.splice(idx , 1);
 		} else {
 			data.push($event.value);
@@ -85,8 +85,8 @@ export class SystemStaffComponent implements OnInit{
 	private getRole(): void {
 		this.roleSer.getAll()
 			.subscribe( (res: RESPONSE) => {
-				this.roleENUM = AdaptorUtils.reflect(res.data , { name: 'label' , id: 'value'})
-			})
+				this.roleENUM = AdaptorUtils.reflect(res.data , { name: 'label' , id: 'value'});
+			});
 	}
 
 	private getDeparts(): void {
@@ -98,34 +98,34 @@ export class SystemStaffComponent implements OnInit{
 					const item = stack.shift() ;
 					enums.push({
 						value: item.id ,
-						label: item.name
+						label: item.name,
 					});
 
-					if( item.children && item.children.length ) {
+					if ( item.children && item.children.length ) {
 						stack = stack.concat( item.children ) ;
 					}
 				}
 				this.departENUM = enums ;
-			})
+			});
 	}
-	private add(): void{
+	public add(): void{
 		console.log( this ) ;
 		this.form.patchValue({
 			roleIds: this.selectedRole,
 			shopId: this.selectedShop,
-			departIds: this.selectDepart
+			departIds: this.selectDepart,
 		});
 
-		if( !this.form.valid ) {
+		if ( !this.form.valid ) {
 			this.msg.error('请检查每项填写的信息') ;
 			return ;
 		}
 		this.staff.post( this.form.value )
 			.subscribe( ( res: RESPONSE ) => {
-				if( this.oid ) {
+				if ( this.oid ) {
 					this.msg.success('添加成功', () => {
 						this.basicSer.historyBack() ;
-					})
+					});
 				} else {
 					this.msg.success('添加成功');
 					this.form.reset();
@@ -145,7 +145,7 @@ export class SystemStaffComponent implements OnInit{
 						return item ;
 					});
 
-					this.form.patchValue({ password: '123123'})
+					this.form.patchValue({ password: '123123'});
 				}
 			});
 	}

@@ -113,7 +113,7 @@ export class OrderMakeComponent implements OnInit{
 
     public selectSubClassify: number = null ;
 
-    private childClassifyList: any[] = [] ;
+    public childClassifyList: any[] = [] ;
 
     public totalNumber: number = 0 ;
 

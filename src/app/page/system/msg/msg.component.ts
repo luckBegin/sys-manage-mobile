@@ -28,8 +28,8 @@ export class MsgComponent implements OnInit{
 
 	private queryModel: QueryModel = new QueryModel() ;
 
-	private usrInfo: any ;
-	private wxUserInfo: any ;
+	public usrInfo: any ;
+	public wxUserInfo: any ;
 
 	public height: number = document.documentElement.clientHeight;
 	public dataComplete: boolean = false ;

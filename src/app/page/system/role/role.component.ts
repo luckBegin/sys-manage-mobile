@@ -1,17 +1,17 @@
-import {Component, OnInit} from "@angular/core";
-import {SysRoleService} from "../../../service/system/role.service";
-import {ENUM, RESPONSE} from '../../../models'
-import {BasicService} from "../../../service/basic/basic.service";
-import {QueryModel} from "./query.model";
-import {StaffService} from "../../../service/system";
-import {AdaptorUtils} from "../../../shared/utils";
-import {ModalService} from "ng-zorro-antd-mobile";
-import {MsgService} from "../../../service/msg/msg.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {SysRoleService} from '../../../service/system/role.service';
+import {ENUM, RESPONSE} from '../../../models';
+import {BasicService} from '../../../service/basic/basic.service';
+import {QueryModel} from './query.model';
+import {StaffService} from '../../../service/system';
+import {AdaptorUtils} from '../../../shared/utils';
+import {ModalService} from 'ng-zorro-antd-mobile';
+import {MsgService} from '../../../service/msg/msg.service';
+import {Router} from '@angular/router';
 @Component({
 	selector: 'system-role' ,
 	templateUrl: './role.component.html' ,
-	styleUrls: ['./role.component.less']
+	styleUrls: ['./role.component.less'],
 })
 export class SystemRoleComponent implements OnInit{
 	constructor(
@@ -20,8 +20,8 @@ export class SystemRoleComponent implements OnInit{
 		private readonly staffSer: StaffService ,
 		private readonly modal: ModalService ,
 		private readonly msg: MsgService,
-		private readonly router: Router
-	){} ;
+		private readonly router: Router,
+	){} 
 
 	ngOnInit(): void {
 		this.getRole() ;
@@ -33,7 +33,7 @@ export class SystemRoleComponent implements OnInit{
 		this.basicSer.showLoad() ;
 		this.service.getAll()
 			.subscribe(( res: RESPONSE ) => {
-				if( res.data.length ) {
+				if ( res.data.length ) {
 					this.role = AdaptorUtils.reflect(res.data, { name: 'key' , id: 'label'}) ;
 					this.listQueryModel.roleId = this.role[0].label ;
 					this.getList() ;
@@ -45,40 +45,40 @@ export class SystemRoleComponent implements OnInit{
 			});
 	}
 
-	private listQueryModel: QueryModel = new QueryModel ;
+	public listQueryModel: QueryModel = new QueryModel ;
 	public height: number = document.documentElement.clientHeight;
 	public staffList: any[] = [] ;
 	private dataComplete: boolean = false ;
 	public loading: boolean = false ;
 	public totalNumber: number = 0;
 	private getList( refresh: boolean = false ): void {
-		if(refresh)
+		if (refresh)
 			this.loading = true ;
 		this.staffSer.get( this.listQueryModel )
 			.subscribe( (res: RESPONSE) => {
 				setTimeout( () => {
-					if(refresh)
+					if (refresh)
 						this.staffList = [] ;
 					const arr = res.data.map( item => {
 						item.shopName = item.shopOutputVOS.map( subItem => subItem.name ).join(',') ;
 						return item ;
-					})
+					});
 					this.staffList = this.staffList.concat( arr ) ;
-					if( res.page && res.page.totalNumber <= this.staffList.length ) {
+					if ( res.page && res.page.totalNumber <= this.staffList.length ) {
 
 						this.dataComplete = true ;
-						this.refreshState.currentState = 'noMore'
+						this.refreshState.currentState = 'noMore';
 					} else {
 						this.refreshState.currentState = 'finish';
 					}
 					this.totalNumber = res.page ? res.page.totalNumber : 0 ;
 					this.loading = false ;
-				}, 200)
-			})
+				}, 200);
+			});
 	}
 
 	public roleChange( $event: any = null): void {
-		if( this.listQueryModel.roleId === $event) return ;
+		if ( this.listQueryModel.roleId === $event) return ;
 		this.listQueryModel.roleId = $event ;
 		this.dataComplete = false ;
 		this.getList(true) ;
@@ -86,8 +86,8 @@ export class SystemRoleComponent implements OnInit{
 
 	public refreshState: any = { currentState: 'deactivate', drag: false };
 	public refresh($event: any): void{
-		if( this.dataComplete ) {
-			return
+		if ( this.dataComplete ) {
+			return;
 		} else {
 			this.listQueryModel.currentPage += 1;
 			this.refreshState.currentState = 'release';
@@ -96,19 +96,19 @@ export class SystemRoleComponent implements OnInit{
 	}
 
 	public remove( item: any): void {
-		const roleIds = item.roleIds ? item.roleIds.split(",") : [] ;
+		const roleIds = item.roleIds ? item.roleIds.split(',') : [] ;
 		const resetIds = roleIds.filter( item => item / 1 !== this.listQueryModel.roleId ) ;
 		this.modal.alert('移除', `确定将${item.name}从该角色移除`, [
 			{ text: '取消'},
 			{ text: '确定', onPress: () => {
 				this.staffSer.put({
 					id: item.id ,
-					roleIds: resetIds
+					roleIds: resetIds,
 				})
 					.subscribe( (res: RESPONSE) => {
 						this.msg.success('操作成功');
 						this.getList(true) ;
-					})
+					});
 			}},
 		]);
 	}
@@ -116,8 +116,8 @@ export class SystemRoleComponent implements OnInit{
 	public add(): void {
 		this.router.navigate(['/system/bindRole'] , {
 			queryParams: {
-				id:this.listQueryModel.roleId
-			}
-		})
+				id: this.listQueryModel.roleId,
+			},
+		});
 	}
 }

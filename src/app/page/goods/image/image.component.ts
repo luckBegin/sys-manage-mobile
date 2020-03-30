@@ -7,13 +7,13 @@ import {GoodsService} from '../../../service/goods/goods.service';
 @Component({
     selector: 'goods-image' ,
     templateUrl: './image.component.html',
-    styleUrls: ['./image.component.less']
+    styleUrls: ['./image.component.less'],
 })
 export class GoodsImageComponent implements OnInit{
     constructor(
         private readonly basicSer: BasicService,
-        private readonly goodsSer: GoodsService
-    ){};
+        private readonly goodsSer: GoodsService,
+    ){}
 
     ngOnInit(): void {
         this.getSubClassify();
@@ -28,7 +28,7 @@ export class GoodsImageComponent implements OnInit{
 
     public subSelect(type: number): void {
         this.selectSubClassify = type ;
-        this.childClassifyQuery = new ChildClassifyQuery()
+        this.childClassifyQuery = new ChildClassifyQuery();
         this.childClassifyQuery.subClassifyId = type ;
         this.getChildClassify(true);
     }
@@ -37,14 +37,14 @@ export class GoodsImageComponent implements OnInit{
         this.goodsSer.subClassify()
             .subscribe( (res: RESPONSE) => {
                 this.subClassifyList = res.data ;
-            })
+            });
     }
 
-    public childClassifyQuery: ChildClassifyQuery = new ChildClassifyQuery ;
+    public childClassifyQuery: ChildClassifyQuery = new ChildClassifyQuery() ;
 
     public loading: boolean = false ;
 
-    private childClassifyList: any[] = [] ;
+    public childClassifyList: any[] = [] ;
 
     public refreshState: any = { currentState: 'deactivate', drag: false };
 
@@ -55,8 +55,8 @@ export class GoodsImageComponent implements OnInit{
     public height: number = document.documentElement.clientHeight;
 
     public refresh($event: any): void{
-        if( this.dataComplete ) {
-            return
+        if ( this.dataComplete ) {
+            return;
         } else {
             this.childClassifyQuery.currentPage += 1;
             this.refreshState.currentState = 'release';
@@ -75,14 +75,14 @@ export class GoodsImageComponent implements OnInit{
                     this.childClassifyList = this.childClassifyList.concat( res.data ) ;
                     if (res.page && res.page.totalNumber <= this.childClassifyList.length) {
                         this.dataComplete = true;
-                        this.refreshState.currentState = 'noMore'
+                        this.refreshState.currentState = 'noMore';
                     } else {
                         this.refreshState.currentState = 'finish';
                     }
                     this.totalNumber = res.page ? res.page.totalNumber : 0;
                     this.loading = false;
-                }, 200)
-            })
+                }, 200);
+            });
     }
 
     public uploadShow: boolean = false ;
