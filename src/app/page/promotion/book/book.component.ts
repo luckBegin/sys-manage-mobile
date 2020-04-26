@@ -51,6 +51,7 @@ export class PromotionBookComponent implements OnInit {
 		id: [null],
 		status: [ 0 ] ,
 		remark: [ null ],
+		saleManagerId: [ null ],
 	});
 
 	ngOnInit(): void {
@@ -100,6 +101,10 @@ export class PromotionBookComponent implements OnInit {
 		this.form.patchValue({ status: 0}) ;
 
 		const service = this.editMark ? this.service.bookPut.bind(this.service) : this.service.bookPost.bind(this.service) ;
+		const saleManagerId = this.sgo.get('staffInfo').userInfo.id.toString();
+		this.form.patchValue({
+			saleManagerId,
+		});
 		service(this.form.value)
 			.subscribe((res: RESPONSE) => {
 				this.form.reset();
