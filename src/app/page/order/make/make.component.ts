@@ -22,7 +22,6 @@ export class OrderMakeComponent implements OnInit{
 		private readonly goodsSer: GoodsService,
 		private readonly msg: MsgService ,
 		private readonly sgo: SessionStorageService,
-		// TODO delete this service
 		private readonly orderSer: OrderRoomService,
 	){}
 
