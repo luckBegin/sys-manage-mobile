@@ -37,6 +37,7 @@ export class PromotionBookComponent implements OnInit {
 	public bookDataLoading = false ;
 	public bookList: any[] = [];
 	public refreshState: any = { currentState: 'deactivate', drag: false };
+	public headUrl: string = '../../../../assets/img/default.jpeg' ;
 	private bookListQueryModel: BookListQueryModel ;
 	private dataComplete = false ;
 	private editMark = false ;
@@ -56,7 +57,9 @@ export class PromotionBookComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getTypeEnum() ;
-		const shopInfo = this.sgo.get('staffInfo').shopInfo ;
+		const staffInfo = this.sgo.get('staffInfo') ;
+		const {shopInfo , wxUserInfo} = staffInfo ;
+		if ( wxUserInfo.headimgurl ) this.headUrl = wxUserInfo.headimgurl ;
 		this.shopENUM = AdaptorUtils.reflect(shopInfo , {id: 'value' , name: 'label'} ) ;
 	}
 

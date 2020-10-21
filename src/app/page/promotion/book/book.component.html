@@ -1,195 +1,195 @@
 <div>
-	<Drawer
-			class="my-drawer"
-			[ngStyle]="{ minHeight: this.height + 'px' , width: '100%'}"
-			[sidebarStyle]="{width:'100%'}"
-			[enableDragHandle]="false"
-			[open]="bookListShow"
-			[sidebar]="sidebar"
-	>
-		<Navbar>
-			book
-		</Navbar>
+    <Drawer
+            class="my-drawer"
+            [ngStyle]="{ minHeight: this.height + 'px' , width: '100%'}"
+            [sidebarStyle]="{width:'100%'}"
+            [enableDragHandle]="false"
+            [open]="bookListShow"
+            [sidebar]="sidebar"
+    >
+        <Navbar>
+            book
+        </Navbar>
 
-		<div class="list">
-			<List [className]="'my-list'">
-				<ListItem multipleLine [arrow]="'horizontal'" (onClick)="showList()">
-					记录
-					<Brief>查看我的预定记录</Brief>
-				</ListItem>
-			</List>
-		</div>
+        <div class="list">
+            <List [className]="'my-list'">
+                <ListItem multipleLine [arrow]="'horizontal'" (onClick)="showList()">
+                    记录
+                    <Brief>查看我的预定记录</Brief>
+                </ListItem>
+            </List>
+        </div>
 
-		<div class='form-wrapper'>
-			<form [formGroup]="form">
-				<List className="c-required">
-					<ListItem
-							Picker
-							[data]="shopENUM"
-							[ngModel]="form.value.a"
-							[ngModelOptions]="{standalone: true}"
-							[extra]="selectShop"
-							[arrow]="'horizontal'"
-							[mask]="true"
-							title="店面"
-							(ngModelChange)="selectChange($event , 'shop')"
-					>
-						店面
-					</ListItem>
-				</List>
-				<List className="c-required">
-					<ListItem
-							Picker
-							[data]="typeENUM"
-							[extra]="selectArea"
-							[arrow]="'horizontal'"
-							[mask]="true"
-							[ngModel]="form.value.a"
-							title="类型"
-							(ngModelChange)="selectChange($event , 'type')"
-							[ngModelOptions]="{standalone: true}"
-					>
-						类型
-					</ListItem>
-				</List>
-				<List className="c-required">
-					<ListItem
-							DatePicker
-							[extra]="format(currentTime)"
-							[arrow]="'horizontal'"
-							[mode]="'time'"
-							[ngModel]="form.value.reserveDate"
-							(onOk)="timeChange($event)"
-							[ngModelOptions]="{standalone: true}"
-					>
-						时间
-					</ListItem>
-				</List>
+        <div class='form-wrapper'>
+            <form [formGroup]="form">
+                <List className="c-required">
+                    <ListItem
+                            Picker
+                            [data]="shopENUM"
+                            [ngModel]="form.value.a"
+                            [ngModelOptions]="{standalone: true}"
+                            [extra]="selectShop"
+                            [arrow]="'horizontal'"
+                            [mask]="true"
+                            title="店面"
+                            (ngModelChange)="selectChange($event , 'shop')"
+                    >
+                        店面
+                    </ListItem>
+                </List>
+                <List className="c-required">
+                    <ListItem
+                            Picker
+                            [data]="typeENUM"
+                            [extra]="selectArea"
+                            [arrow]="'horizontal'"
+                            [mask]="true"
+                            [ngModel]="form.value.a"
+                            title="类型"
+                            (ngModelChange)="selectChange($event , 'type')"
+                            [ngModelOptions]="{standalone: true}"
+                    >
+                        类型
+                    </ListItem>
+                </List>
+                <List className="c-required">
+                    <ListItem
+                            DatePicker
+                            [extra]="format(currentTime)"
+                            [arrow]="'horizontal'"
+                            [mode]="'time'"
+                            [ngModel]="form.value.reserveDate"
+                            (onOk)="timeChange($event)"
+                            [ngModelOptions]="{standalone: true}"
+                    >
+                        时间
+                    </ListItem>
+                </List>
 
-				<InputItem
-						[clear]="true"
-						[placeholder]="'请输入预订人姓名'"
-						[content]="'姓名'"
-						formControlName="name"
-						class='c-required'
-				></InputItem>
+                <InputItem
+                        [clear]="true"
+                        [placeholder]="'请输入预订人姓名'"
+                        [content]="'姓名'"
+                        formControlName="name"
+                        class='c-required'
+                ></InputItem>
 
-				<InputItem
-					[clear]="true"
-					[placeholder]="'请输入预订人手机号'"
-					[content]="'手机'"
-					formControlName="tel"
-					class='c-required'
-					maxLength = '11'
-				></InputItem>
+                <InputItem
+                        [clear]="true"
+                        [placeholder]="'请输入预订人手机号'"
+                        [content]="'手机'"
+                        formControlName="tel"
+                        class='c-required'
+                        maxLength='11'
+                ></InputItem>
 
-				<InputItem
-						[clear]="true"
-						[placeholder]="'请输入预订人数'"
-						[content]="'人数'"
-						formControlName="num"
-				></InputItem>
+                <InputItem
+                        [clear]="true"
+                        [placeholder]="'请输入预订人数'"
+                        [content]="'人数'"
+                        formControlName="num"
+                ></InputItem>
 
-				<InputItem
-						[clear]="true"
-						[placeholder]="'请输入备注'"
-						[content]="'备注'"
-						formControlName="remark"
-				></InputItem>
+                <InputItem
+                        [clear]="true"
+                        [placeholder]="'请输入备注'"
+                        [content]="'备注'"
+                        formControlName="remark"
+                ></InputItem>
 
-				<div Button type="primary" class="btn" (click)="post()">提交预定</div>
-			</form>
-		</div>
-	</Drawer>
+                <div Button type="primary" class="btn" (click)="post()">提交预定</div>
+            </form>
+        </div>
+    </Drawer>
 </div>
 
 <ng-template #sidebar>
-	<div class='list-container'>
-		<Navbar [icon]="icon" (onLeftClick)="hideList()">
-			book
-		</Navbar>
+    <div class='list-container'>
+        <Navbar [icon]="icon" (onLeftClick)="hideList()">
+            book
+        </Navbar>
 
-		<PullToRefresh
-				[ngStyle]="{height: (this.height - 45) + 'px'}"
-				direction="down"
-				(onRefresh)="refresh($event)"
-				[(ngModel)]="refreshState"
-				endReachedRefresh="true"
-				[footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '已无更多数据' }"
-		>
-			<div style="padding-top: 10px;">
-				<div *ngFor="let item of bookList" class='item-container'>
-					<Badge [text]="item.statusName" [corner]="true" [setStyle]="item.style">
-						<div class="item-top c-flex-row-space">
-							<div class="c-flex-row-start">
-								<img src="../../../../assets/img/default.jpeg" class="item-image" alt="">
-								<div>{{ item.name }}</div>
-							</div>
-						</div>
+        <PullToRefresh
+                [ngStyle]="{height: (this.height - 45) + 'px'}"
+                direction="down"
+                (onRefresh)="refresh($event)"
+                [(ngModel)]="refreshState"
+                endReachedRefresh="true"
+                [footerIndicator]="{activate: '' , deactivate: '' , release: '加载中...', finish: '' , noMore: '已无更多数据' }"
+        >
+            <div style="padding-top: 10px;">
+                <div *ngFor="let item of bookList" class='item-container'>
+                    <Badge [text]="item.statusName" [corner]="true" [setStyle]="item.style">
+                        <div class="item-top c-flex-row-space">
+                            <div class="c-flex-row-start">
+                                <img [src]="headUrl" class="item-image" alt="">
+                                <div>{{ item.name }}</div>
+                            </div>
+                        </div>
 
-						<div class="item-bottom c-flex-row-start c-flex-auto-wrap">
-							<div class="item-bottom-content">
-								店面:
-								<span class='content'>{{item.shopName}}</span>
-							</div>
-							<div class="item-bottom-content">
-								类型:
-								<span class='content'>{{item.typeName}}</span>
-							</div>
-							<div class="item-bottom-content">
-								手机:
-								<span class='content'>{{item.tel}}</span>
-							</div>
-							<div class="item-bottom-content">
-								到店时间:
-								<span class='content'>{{item.reserveDate | datePie: 'h:i' }}</span>
-							</div>
-							<div class="item-bottom-content">
-								人数:
-								<span class='content'>{{item.num | nullPipe}}</span>
-							</div>
-							<div class="item-bottom-content">
-								登记时间:
-								<span class='content'>{{item.createTime | datePie: 'h:i' }}</span>
-							</div>
-							<div>
-								备注:
-								<span class='content'>{{item.remark | nullPipe }}</span>
-							</div>
-						</div>
+                        <div class="item-bottom c-flex-row-start c-flex-auto-wrap">
+                            <div class="item-bottom-content">
+                                店面:
+                                <span class='content'>{{item.shopName}}</span>
+                            </div>
+                            <div class="item-bottom-content">
+                                类型:
+                                <span class='content'>{{item.typeName}}</span>
+                            </div>
+                            <div class="item-bottom-content">
+                                手机:
+                                <span class='content'>{{item.tel}}</span>
+                            </div>
+                            <div class="item-bottom-content">
+                                到店时间:
+                                <span class='content'>{{item.reserveDate | datePie: 'h:i' }}</span>
+                            </div>
+                            <div class="item-bottom-content">
+                                人数:
+                                <span class='content'>{{item.num | nullPipe}}</span>
+                            </div>
+                            <div class="item-bottom-content">
+                                登记时间:
+                                <span class='content'>{{item.createTime | datePie: 'h:i' }}</span>
+                            </div>
+                            <div>
+                                备注:
+                                <span class='content'>{{item.remark | nullPipe }}</span>
+                            </div>
+                        </div>
 
-						<div class = 'item-footer'
-						     *ngIf="item.isNow && (item.status === 0 || item.status === 2)"
-						>
-							<div
-								Button class="button_edit"
-								*ngIf="item.status === 0"
-								(click)="editChanel(item)"
-							>
-								修改
-							</div>
-							<div
-								Button class="button_cancel"
-								(click)="cancelItem(item)"
-								*ngIf="item.status === 0"
-							>
-								取消
-							</div>
-							<div
-								Button class="button_cancel"
-								(click)="cancelBook(item)"
-								*ngIf="item.status === 2"
-							>
-								取消安排
-							</div>
-						</div>
-					</Badge>
-				</div>
-			</div>
-		</PullToRefresh>
-	</div>
+                        <div class='item-footer'
+                             *ngIf="item.isNow && (item.status === 0 || item.status === 2)"
+                        >
+                            <div
+                                    Button class="button_edit"
+                                    *ngIf="item.status === 0"
+                                    (click)="editChanel(item)"
+                            >
+                                修改
+                            </div>
+                            <div
+                                    Button class="button_cancel"
+                                    (click)="cancelItem(item)"
+                                    *ngIf="item.status === 0"
+                            >
+                                取消
+                            </div>
+                            <div
+                                    Button class="button_cancel"
+                                    (click)="cancelBook(item)"
+                                    *ngIf="item.status === 2"
+                            >
+                                取消安排
+                            </div>
+                        </div>
+                    </Badge>
+                </div>
+            </div>
+        </PullToRefresh>
+    </div>
 </ng-template>
 
 <ng-template #icon>
-	<Icon [type]="'left'"></Icon>
+    <Icon [type]="'left'"></Icon>
 </ng-template>
