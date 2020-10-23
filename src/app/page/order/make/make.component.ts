@@ -90,7 +90,6 @@ export class OrderMakeComponent implements OnInit{
 				Object.keys(typeMap).forEach(key => {
 					type.push(typeMap[key]);
 				});
-
 				this.roomList = { type , area };
 		    });
     }

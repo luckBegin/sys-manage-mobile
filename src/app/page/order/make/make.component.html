@@ -47,7 +47,7 @@
 							{{ subItem.name }}
 						</div>
 						<div class = 'status_4 room-content'>
-							<div>消费金额: {{ subItem.orderInfo.realMoney | cusCurrency }}</div>
+							<div>消费金额: {{ subItem.orderInfo.shouldMoney | cusCurrency }}</div>
 							<div>备注: {{ subItem.remark | nullPipe }}</div>
 						</div>
 					</div>
